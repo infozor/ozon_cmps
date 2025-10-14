@@ -32,4 +32,13 @@ class Main
 		$step1 = $Steps->Step1();
 		return $step1;
 	}
+	
+	//Шаг2 Получение информации о прайсе кампании
+	function Step2()
+	{
+		$Steps = new Steps();
+		//подготовка json файла с продуктами
+		$step2 = $Steps->Step2();
+		return $step2;
+	}
 }

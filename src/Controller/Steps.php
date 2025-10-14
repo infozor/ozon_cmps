@@ -71,7 +71,21 @@ class Steps
 	{
 		
 		$Marketparser = new Marketparser();
-		$Marketparser->methodUpdatePrice();
+		$result = $Marketparser->methodUpdatePrice();
+		
+		return $result;
 		
 	}
+	
+	//Шаг2 Получение информации о прайсе кампании
+	function Step2()
+	{
+		
+		$Marketparser = new Marketparser();
+		$result = $Marketparser->methodGetPriceStatus();
+		
+		return $result;
+		
+	}
+	
 }

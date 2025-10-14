@@ -7,14 +7,12 @@ class Marketparser
 {
 	public $config;
 	public $apiToken;
-	public $mainUrl;
+	public $apiMainUrl;
 	
 	public $apiUrl;
 	public $file_data;
 	public $conn;
-	
-	public $apiMailUrl;
-	public $apiMethodPart;
+
 	
 	
 	function __construct()
@@ -22,7 +20,7 @@ class Marketparser
 		$Config = new Config();
 		$this->config = $Config->get_data();
 		$this->apiToken = $this->config['marketparser']['token'];
-		$this->apiMailUrl = $this->config['marketparser']['api']['main_url'];
+		$this->apiMainUrl = $this->config['marketparser']['api']['main_url'];
 		
 		$date = date('dmy_His');
 		$this->file_data = realpath(__DIR__ . '/../../data/') . '/' . 'products_' . $date . '.json';
@@ -69,6 +67,20 @@ class Marketparser
 		
 		curl_close($ch);
 		
+		if ($error)
+		{
+			// Обработка ошибки cURL
+			//echo "Ошибка cURL: " . $error;
+			$response = $error;
+		}
+		else
+		{
+			// Обработка успешного ответа
+			//echo "HTTP код: " . $httpCode . "\n";
+			//echo "Ответ: " . $response;
+		}
+		
+		
 		return $response;
 	}
 	
@@ -96,14 +108,29 @@ class Marketparser
 		$error = curl_error($ch);
 		
 		curl_close($ch);
+		
+		if ($error)
+		{
+			// Обработка ошибки cURL
+			//echo "Ошибка cURL: " . $error;
+			$response = $error;
+		}
+		else
+		{
+			// Обработка успешного ответа
+			//echo "HTTP код: " . $httpCode . "\n";
+			//echo "Ответ: " . $response;
+		}
+		
+		return $response;
 	}
 	
 	function methodGetCampaigns()
 	{
 		
-		$this->apiMethodPart[0] = $this->config['marketparser']['api']['methods']['ListCampaigns']['method_part0'];
+		$apiMethodPart[0] = $this->config['marketparser']['api']['methods']['ListCampaigns']['method_part0'];
 		
-		$apiUrl = $this->apiMailUrl.$this->apiMethodPart[0];
+		$apiUrl = $this->apiMainUrl.$apiMethodPart[0];
 		
 		$result = $this->send_get($apiUrl);
 		
@@ -119,13 +146,13 @@ class Marketparser
 		//marketparser_step1_update_price.php
 		
 		
-		$this->apiMethodPart[0] = $this->config['marketparser']['api']['methods']['UpdatePrice']['method_part0'];
-		$this->apiMethodPart[1] = $this->config['marketparser']['api']['methods']['UpdatePrice']['method_part1'];
+		$apiMethodPart[0] = $this->config['marketparser']['api']['methods']['UpdatePrice']['method_part0'];
+		$apiMethodPart[1] = $this->config['marketparser']['api']['methods']['UpdatePrice']['method_part1'];
 		
 		$CAMPAIGN_ID = '55312';
 		
 		
-		$apiUrl = $this->apiMailUrl.$this->apiMethodPart[0].$CAMPAIGN_ID.$this->apiMethodPart[1];
+		$apiUrl = $this->apiMailUrl.$apiMethodPart[0].$CAMPAIGN_ID.$this->apiMethodPart[1];
 		
 		$body = '{"products": [
 {
@@ -148,5 +175,23 @@ class Marketparser
 		$result = $this->send_post($apiUrl, $body);
 		
 		return $result;
+	}
+	
+	function methodGetPriceStatus()
+	{
+		$apiMethodPart[0] = $this->config['marketparser']['api']['methods']['GetPriceStatus']['method_part0'];
+		$apiMethodVar[0] = $this->config['marketparser']['api']['methods']['GetPriceStatus']['method_var0'];
+		$apiMethodPart[1] = $this->config['marketparser']['api']['methods']['GetPriceStatus']['method_part1'];
+		
+		$CAMPAIGN_ID = '55312';
+		
+		$apiUrl = $this->apiMainUrl.$apiMethodPart[0].$CAMPAIGN_ID.$apiMethodPart[1];
+		
+		
+		
+		$result = $this->send_get($apiUrl);
+		
+		return $result;
+		
 	}
 }
