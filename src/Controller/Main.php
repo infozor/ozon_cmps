@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Controller;
-use App\Controller\Check;
+use App\Controller\Steps;
 
 class Main
 {
@@ -10,11 +10,11 @@ class Main
 	{
 		$a = 1;
 	}
-	function Test()
+	function Step1()
 	{
-		$Check = new Check();
-		$test = $Check->Test();
-		return $test;
+		$Steps = new Steps();
+		$step1 = $Steps->Step1();
+		return $step1;
 	}
 	
 }

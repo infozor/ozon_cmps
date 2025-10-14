@@ -2,17 +2,19 @@
 
 namespace App\Controller;
 
-class Check
+class Steps
 {
 	public $file_data;
 	public $Ozon;
 	public $Db;
+	
 	function __construct()
 	{
 		$date = date('dmy_His');
-		$this->file_data = realpath(__DIR__ . '/../../data/') . '/' . 'result_' . $date . '.json';
+		$this->file_data = realpath(__DIR__ . '/../../data/') . '/' . 'products_' . $date . '.json';
 	}
-	function Test()
+	//подготовка json файла с продуктами
+	function Step1()
 	{
 		$this->Db = new Db();
 		$fetch = $this->Db->get_ozon_products_info_price_ozon_card();
@@ -53,6 +55,6 @@ class Check
 
 		file_put_contents($this->file_data, $data, FILE_APPEND);
 
-		$a = 1;
+		return $this->file_data;
 	}
 }

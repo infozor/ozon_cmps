@@ -5,5 +5,5 @@ require $path . '/' . 'autoload.php';
 use App\Controller\Main;
 
 $Main = new Main;
-$result = $Main->Test();
-echo ($result);
+$file = $Main->Step1();
+echo ($file);
