@@ -88,4 +88,14 @@ class Steps
 		
 	}
 	
+	// Шаг3 Создание отчёта по кампании
+	function Step3()
+	{
+		
+		$Marketparser = new Marketparser();
+		$result = $Marketparser->methodCreateReport();
+		
+		return $result;
+		
+	}
 }

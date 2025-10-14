@@ -28,7 +28,6 @@ class Main
 	function Step1()
 	{
 		$Steps = new Steps();
-		//подготовка json файла с продуктами
 		$step1 = $Steps->Step1();
 		return $step1;
 	}
@@ -37,8 +36,15 @@ class Main
 	function Step2()
 	{
 		$Steps = new Steps();
-		//подготовка json файла с продуктами
 		$step2 = $Steps->Step2();
+		return $step2;
+	}
+	
+	// Шаг3 Создание отчёта по кампании
+	function Step3()
+	{
+		$Steps = new Steps();
+		$step2 = $Steps->Step3();
 		return $step2;
 	}
 }

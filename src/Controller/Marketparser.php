@@ -152,7 +152,7 @@ class Marketparser
 		$CAMPAIGN_ID = '55312';
 		
 		
-		$apiUrl = $this->apiMailUrl.$apiMethodPart[0].$CAMPAIGN_ID.$this->apiMethodPart[1];
+		$apiUrl = $this->apiMainUrl.$apiMethodPart[0].$CAMPAIGN_ID.$apiMethodPart[1];
 		
 		$body = '{"products": [
 {
@@ -193,5 +193,24 @@ class Marketparser
 		
 		return $result;
 		
+	}
+	
+	function methodCreateReport()
+	{
+		$apiMethodPart[0] = $this->config['marketparser']['api']['methods']['CreateReport']['method_part0'];
+		$apiMethodVar[0] = $this->config['marketparser']['api']['methods']['CreateReport']['method_var0'];
+		$apiMethodPart[1] = $this->config['marketparser']['api']['methods']['CreateReport']['method_part1'];
+		
+		
+		$CAMPAIGN_ID = '55312';
+		
+		
+		$apiUrl = $this->apiMainUrl.$apiMethodPart[0].$CAMPAIGN_ID.$apiMethodPart[1];
+		
+		$body = [];
+		
+		$result = $this->send_post($apiUrl, $body);
+		
+		return $result;
 	}
 }
