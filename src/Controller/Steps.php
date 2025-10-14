@@ -14,7 +14,7 @@ class Steps
 		$this->file_data = realpath(__DIR__ . '/../../data/') . '/' . 'products_' . $date . '.json';
 	}
 	//подготовка json файла с продуктами
-	function Step1()
+	function Step0()
 	{
 		$this->Db = new Db();
 		$fetch = $this->Db->get_ozon_products_info_price_ozon_card();
@@ -56,5 +56,12 @@ class Steps
 		file_put_contents($this->file_data, $data, FILE_APPEND);
 
 		return $this->file_data;
+	}
+	function Step1()
+	{
+		
+		$Marketparser = new Marketparser();
+		$Marketparser->methodGetCampaigns();
+		
 	}
 }
