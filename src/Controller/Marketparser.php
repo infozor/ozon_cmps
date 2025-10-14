@@ -23,8 +23,7 @@ class Marketparser
 		$this->config = $Config->get_data();
 		$this->apiToken = $this->config['marketparser']['token'];
 		$this->apiMailUrl = $this->config['marketparser']['api']['main_url'];
-		$this->apiMethodPart[0] = $this->config['marketparser']['api']['methods']['UpdatePrice']['method_part0'];
-		$this->apiMethodPart[1] = $this->config['marketparser']['api']['methods']['UpdatePrice']['method_part1'];
+		
 		$date = date('dmy_His');
 		$this->file_data = realpath(__DIR__ . '/../../data/') . '/' . 'products_' . $date . '.json';
 		
@@ -38,6 +37,39 @@ class Marketparser
 		$conn->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
 		
 		$this->conn = $conn;
+	}
+	
+	
+	function send_get($apiUrl)
+	{
+		$headers = [
+				'Api-Key: ' . $this->apiToken,
+				'Content-Type: application/json'
+		];
+		
+		
+		$queryString = '';
+		
+		$fullUrl = $apiUrl . ($queryString ? '?' . $queryString : '');
+		
+		$ch = curl_init($fullUrl);
+		curl_setopt_array($ch, [
+				CURLOPT_HTTPGET => true,
+				CURLOPT_HTTPHEADER => $headers,
+				CURLOPT_RETURNTRANSFER => true,
+				CURLOPT_SSL_VERIFYPEER => false,
+				CURLOPT_SSL_VERIFYHOST => false,
+				CURLOPT_FOLLOWLOCATION => true,
+				CURLOPT_TIMEOUT => 30
+		]);
+		
+		$response = curl_exec($ch);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$error = curl_error($ch);
+		
+		curl_close($ch);
+		
+		return $response;
 	}
 	
 	function send_post($apiUrl, $body)
@@ -66,13 +98,29 @@ class Marketparser
 		curl_close($ch);
 	}
 	
-
-	
 	function methodGetCampaigns()
+	{
+		
+		$this->apiMethodPart[0] = $this->config['marketparser']['api']['methods']['ListCampaigns']['method_part0'];
+		
+		$apiUrl = $this->apiMailUrl.$this->apiMethodPart[0];
+		
+		$result = $this->send_get($apiUrl);
+		
+		return $result;
+		
+		
+		
+	}
+	
+	function methodOpdatePrice()
 	{
 		
 		//marketparser_step1_update_price.php
 		
+		
+		$this->apiMethodPart[0] = $this->config['marketparser']['api']['methods']['UpdatePrice']['method_part0'];
+		$this->apiMethodPart[1] = $this->config['marketparser']['api']['methods']['UpdatePrice']['method_part1'];
 		
 		$CAMPAIGN_ID = '55312';
 		
@@ -99,6 +147,6 @@ class Marketparser
 	
 		$result = $this->send_post($apiUrl, $body);
 		
-		
+		return $result;
 	}
 }

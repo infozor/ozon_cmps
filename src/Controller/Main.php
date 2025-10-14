@@ -10,11 +10,19 @@ class Main
 	{
 		$a = 1;
 	}
-	function Step0()
+	function Step00()
 	{
 		$Steps = new Steps();
 		//подготовка json файла с продуктами
-		$step1 = $Steps->Step0();
+		$step1 = $Steps->Step00();
+		return $step1;
+	}
+	
+	function Step01()
+	{
+		$Steps = new Steps();
+		//Список кампаний
+		$step1 = $Steps->Step01();
 		return $step1;
 	}
 	function Step1()
