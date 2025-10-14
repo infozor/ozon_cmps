@@ -213,4 +213,28 @@ class Marketparser
 		
 		return $result;
 	}
+	
+	function methodGetReportStatus()
+	{
+		$apiMethodPart[0] = $this->config['marketparser']['api']['methods']['GetReportStatus']['method_part0'];
+		$apiMethodVar[0] = $this->config['marketparser']['api']['methods']['GetReportStatus']['method_var0'];
+		$apiMethodPart[1] = $this->config['marketparser']['api']['methods']['GetReportStatus']['method_part1'];
+		$apiMethodVar[1] = $this->config['marketparser']['api']['methods']['GetReportStatus']['method_var1'];
+		$apiMethodPart[2] = $this->config['marketparser']['api']['methods']['GetReportStatus']['method_part2'];
+		
+		
+		
+		$CAMPAIGN_ID = '55312';
+		
+		$REPORT_ID = '3056408';
+		
+		$apiUrl = $this->apiMainUrl.$apiMethodPart[0].$CAMPAIGN_ID.$apiMethodPart[1].$REPORT_ID.$apiMethodPart[2];
+		
+		
+		
+		$result = $this->send_get($apiUrl);
+		
+		return $result;
+		
+	}
 }

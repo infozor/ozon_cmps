@@ -44,7 +44,15 @@ class Main
 	function Step3()
 	{
 		$Steps = new Steps();
-		$step2 = $Steps->Step3();
-		return $step2;
+		$step3 = $Steps->Step3();
+		return $step3;
+	}
+	
+	//Шаг4 Получение информации об отчёте
+	function Step4()
+	{
+		$Steps = new Steps();
+		$step4 = $Steps->Step4();
+		return $step4;
 	}
 }

@@ -98,4 +98,14 @@ class Steps
 		return $result;
 		
 	}
+	
+	function Step4()
+	{
+		
+		$Marketparser = new Marketparser();
+		$result = $Marketparser->methodGetReportStatus();
+		
+		return $result;
+		
+	}
 }
