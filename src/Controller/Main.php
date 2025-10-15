@@ -40,18 +40,18 @@ class Main
 	}
 
 	// Шаг3 Создание отчёта по кампании
-	function Step3()
+	function Step3($campaign_id)
 	{
 		$Steps = new Steps();
-		$step3 = $Steps->Step3();
+		$step3 = $Steps->Step3($campaign_id);
 		return $step3;
 	}
 
 	// Шаг4 Получение информации об отчёте
-	function Step4()
+	function Step4($campaign_id, $report_id)
 	{
 		$Steps = new Steps();
-		$step4 = $Steps->Step4();
+		$step4 = $Steps->Step4($campaign_id, $report_id);
 		return $step4;
 	}
 

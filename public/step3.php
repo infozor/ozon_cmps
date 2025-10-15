@@ -7,6 +7,6 @@ require $path . '/' . 'autoload.php';
 use App\Controller\Main;
 
 $Main = new Main;
-$file = $Main->Step3();
+$file = $Main->Step3($campaign_id);
 unset($Main);
 echo ($file);

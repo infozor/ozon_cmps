@@ -88,17 +88,17 @@ class Steps
 	}
 
 	// Шаг3 Создание отчёта по кампании
-	function Step3()
+	function Step3($campaign_id)
 	{
 		$Marketparser = new Marketparser();
-		$result = $Marketparser->methodCreateReport();
+		$result = $Marketparser->methodCreateReport($campaign_id);
 
 		return $result;
 	}
-	function Step4()
+	function Step4($campaign_id, $report_id)
 	{
 		$Marketparser = new Marketparser();
-		$result = $Marketparser->methodGetReportStatus();
+		$result = $Marketparser->methodGetReportStatus($campaign_id, $report_id);
 
 		return $result;
 	}

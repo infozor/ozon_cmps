@@ -180,13 +180,14 @@ class Marketparser
 
 		return $result;
 	}
-	function methodCreateReport()
+	function methodCreateReport($campaign_id)
 	{
 		$apiMethodPart[0] = $this->config['marketparser']['api']['methods']['CreateReport']['method_part0'];
 		$apiMethodVar[0] = $this->config['marketparser']['api']['methods']['CreateReport']['method_var0'];
 		$apiMethodPart[1] = $this->config['marketparser']['api']['methods']['CreateReport']['method_part1'];
 
-		$CAMPAIGN_ID = '55312';
+		//$CAMPAIGN_ID = '55312';
+		$CAMPAIGN_ID = $campaign_id;
 
 		$apiUrl = $this->apiMainUrl . $apiMethodPart[0] . $CAMPAIGN_ID . $apiMethodPart[1];
 
@@ -196,7 +197,7 @@ class Marketparser
 
 		return $result;
 	}
-	function methodGetReportStatus()
+	function methodGetReportStatus($campaign_id, $report_id)
 	{
 		$apiMethodPart[0] = $this->config['marketparser']['api']['methods']['GetReportStatus']['method_part0'];
 		$apiMethodVar[0] = $this->config['marketparser']['api']['methods']['GetReportStatus']['method_var0'];
@@ -204,10 +205,14 @@ class Marketparser
 		$apiMethodVar[1] = $this->config['marketparser']['api']['methods']['GetReportStatus']['method_var1'];
 		$apiMethodPart[2] = $this->config['marketparser']['api']['methods']['GetReportStatus']['method_part2'];
 
+		/*
 		$CAMPAIGN_ID = '55312';
-
 		$REPORT_ID = '3056408';
+		*/
 
+		$CAMPAIGN_ID = $campaign_id;
+		$REPORT_ID = $report_id;
+		
 		$apiUrl = $this->apiMainUrl . $apiMethodPart[0] . $CAMPAIGN_ID . $apiMethodPart[1] . $REPORT_ID . $apiMethodPart[2];
 
 		$result = $this->send_get($apiUrl);
