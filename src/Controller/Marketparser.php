@@ -125,34 +125,40 @@ class Marketparser
 
 		return $result;
 	}
-	function methodOpdatePrice()
+	function methodUpdatePrice($campaign_id, $json_file_products)
 	{
 
 		// marketparser_step1_update_price.php
 		$apiMethodPart[0] = $this->config['marketparser']['api']['methods']['UpdatePrice']['method_part0'];
 		$apiMethodPart[1] = $this->config['marketparser']['api']['methods']['UpdatePrice']['method_part1'];
 
-		$CAMPAIGN_ID = '55312';
+		//$CAMPAIGN_ID = '55312';
+		
+		$CAMPAIGN_ID = $campaign_id;
 
 		$apiUrl = $this->apiMainUrl . $apiMethodPart[0] . $CAMPAIGN_ID . $apiMethodPart[1];
 
-		$body = '{"products": [
-{
-	"name": "НАКОНЕЧНИК рулевой левый на Geely Atlas Pro с 2021г. - по н.в.",
-	"cost": 0,
-	"id": "1712066954"
-},
-{
-	"name": "НАКОНЕЧНИК рулевой правый на Geely Atlas Pro с 2021г. - по н.в.",
-	"cost": 0,
-	"id": "1712063965"
-},
-{
-	"name": "ОПОРА промежуточная карданного вала на Great Wall Hover H6\/Haval H6\/Haval F7\/Haval F7X",
-	"cost": 0,
-	"id": "1712068692"
-}
-]}';
+		/*
+		 * $body = '{"products": [
+		 * {
+		 * "name": "НАКОНЕЧНИК рулевой левый на Geely Atlas Pro с 2021г. - по н.в.",
+		 * "cost": 0,
+		 * "id": "1712066954"
+		 * },
+		 * {
+		 * "name": "НАКОНЕЧНИК рулевой правый на Geely Atlas Pro с 2021г. - по н.в.",
+		 * "cost": 0,
+		 * "id": "1712063965"
+		 * },
+		 * {
+		 * "name": "ОПОРА промежуточная карданного вала на Great Wall Hover H6\/Haval H6\/Haval F7\/Haval F7X",
+		 * "cost": 0,
+		 * "id": "1712068692"
+		 * }
+		 * ]}';
+		 */
+
+		$body = $json_file_products;
 
 		$result = $this->send_post($apiUrl, $body);
 
@@ -242,18 +248,16 @@ class Marketparser
 		$apiMethodVar[0] = $this->config['marketparser']['api']['methods'][$method]['method_var0'];
 		$apiMethodPart[1] = $this->config['marketparser']['api']['methods'][$method]['method_part1'];
 
-		//$CAMPAIGN_ID = '55312';
+		// $CAMPAIGN_ID = '55312';
 		$CAMPAIGN_ID = '55310';
 
-		//$REPORT_ID = '3056408';
+		// $REPORT_ID = '3056408';
 
 		/*
 		 * $CAMPAIGN_ID = '55310';
 		 *
 		 * $REPORT_ID = '3033811';
 		 */
-
-		
 
 		$apiUrl = $this->apiMainUrl . $apiMethodPart[0] . $CAMPAIGN_ID . $apiMethodPart[1];
 

@@ -8,4 +8,5 @@ use App\Controller\Main;
 
 $Main = new Main;
 $file = $Main->Step2();
+unset($Main);
 echo ($file);

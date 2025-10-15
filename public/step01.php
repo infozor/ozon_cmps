@@ -7,4 +7,6 @@ use App\Controller\Main;
 $Main = new Main;
 //Список кампаний
 $result = $Main->Step01();
+unset($Main);
+
 echo ($result);
