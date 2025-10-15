@@ -32,10 +32,10 @@ class Main
 	}
 
 	// Шаг2 Получение информации о прайсе кампании
-	function Step2()
+	function Step2($campaign_id)
 	{
 		$Steps = new Steps();
-		$step2 = $Steps->Step2();
+		$step2 = $Steps->Step2($campaign_id);
 		return $step2;
 	}
 

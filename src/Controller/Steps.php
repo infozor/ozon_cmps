@@ -79,10 +79,10 @@ class Steps
 	}
 
 	// Шаг2 Получение информации о прайсе кампании
-	function Step2()
+	function Step2($campaign_id)
 	{
 		$Marketparser = new Marketparser();
-		$result = $Marketparser->methodGetPriceStatus();
+		$result = $Marketparser->methodGetPriceStatus($campaign_id);
 
 		return $result;
 	}

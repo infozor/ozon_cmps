@@ -164,13 +164,15 @@ class Marketparser
 
 		return $result;
 	}
-	function methodGetPriceStatus()
+	function methodGetPriceStatus($campaign_id)
 	{
 		$apiMethodPart[0] = $this->config['marketparser']['api']['methods']['GetPriceStatus']['method_part0'];
 		$apiMethodVar[0] = $this->config['marketparser']['api']['methods']['GetPriceStatus']['method_var0'];
 		$apiMethodPart[1] = $this->config['marketparser']['api']['methods']['GetPriceStatus']['method_part1'];
 
-		$CAMPAIGN_ID = '55312';
+		//$CAMPAIGN_ID = '55312';
+		
+		$CAMPAIGN_ID = $campaign_id;
 
 		$apiUrl = $this->apiMainUrl . $apiMethodPart[0] . $CAMPAIGN_ID . $apiMethodPart[1];
 
