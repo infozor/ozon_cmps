@@ -55,4 +55,12 @@ class Main
 		$step4 = $Steps->Step4();
 		return $step4;
 	}
+	
+	//Шаг5 Получение результатов парсинга отчёта
+	function Step5()
+	{
+		$Steps = new Steps();
+		$step5 = $Steps->Step5();
+		return $step5;
+	}
 }
