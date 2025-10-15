@@ -69,53 +69,51 @@ class Steps
 	
 	function Step1()
 	{
-		
 		$Marketparser = new Marketparser();
 		$result = $Marketparser->methodUpdatePrice();
 		
 		return $result;
-		
 	}
 	
 	//Шаг2 Получение информации о прайсе кампании
 	function Step2()
 	{
-		
 		$Marketparser = new Marketparser();
 		$result = $Marketparser->methodGetPriceStatus();
 		
 		return $result;
-		
 	}
 	
 	// Шаг3 Создание отчёта по кампании
 	function Step3()
 	{
-		
 		$Marketparser = new Marketparser();
 		$result = $Marketparser->methodCreateReport();
 		
 		return $result;
-		
 	}
 	
 	function Step4()
 	{
-		
 		$Marketparser = new Marketparser();
 		$result = $Marketparser->methodGetReportStatus();
 		
 		return $result;
-		
 	}
 	
 	function Step5()
 	{
-		
 		$Marketparser = new Marketparser();
 		$result = $Marketparser->methodGetReportResults();
 		
 		return $result;
+	}
+	
+	function Step6()
+	{
+		$Marketparser = new Marketparser();
+		$result = $Marketparser->methodGetCampaignsReports();
 		
+		return $result;
 	}
 }

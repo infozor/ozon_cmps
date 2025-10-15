@@ -216,13 +216,46 @@ class Marketparser
 		$apiMethodVar[1] = $this->config['marketparser']['api']['methods'][$method]['method_var1'];
 		$apiMethodPart[2] = $this->config['marketparser']['api']['methods'][$method]['method_part2'];
 
-		$CAMPAIGN_ID = '55312';
+		/*
+		 * $CAMPAIGN_ID = '55312';
+		 *
+		 * $REPORT_ID = '3056408';
+		 */
 
-		$REPORT_ID = '3056408';
+		$CAMPAIGN_ID = '55310';
+
+		$REPORT_ID = '3033811';
 
 		$page_size = 100;
+
+		$apiUrl = $this->apiMainUrl . $apiMethodPart[0] . $CAMPAIGN_ID . $apiMethodPart[1] . $REPORT_ID . $apiMethodPart[2] . '?per_page=' . $page_size;
+
+		$result = $this->send_get($apiUrl);
+
+		return $result;
+	}
+	function methodGetCampaignsReports()
+	{
+		$method = 'GetCampaignsReports';
+
+		$apiMethodPart[0] = $this->config['marketparser']['api']['methods'][$method]['method_part0'];
+		$apiMethodVar[0] = $this->config['marketparser']['api']['methods'][$method]['method_var0'];
+		$apiMethodPart[1] = $this->config['marketparser']['api']['methods'][$method]['method_part1'];
+
+		//$CAMPAIGN_ID = '55312';
+		$CAMPAIGN_ID = '55310';
+
+		//$REPORT_ID = '3056408';
+
+		/*
+		 * $CAMPAIGN_ID = '55310';
+		 *
+		 * $REPORT_ID = '3033811';
+		 */
+
 		
-		$apiUrl = $this->apiMainUrl . $apiMethodPart[0] . $CAMPAIGN_ID . $apiMethodPart[1] . $REPORT_ID . $apiMethodPart[2].'?per_page='.$page_size;
+
+		$apiUrl = $this->apiMainUrl . $apiMethodPart[0] . $CAMPAIGN_ID . $apiMethodPart[1];
 
 		$result = $this->send_get($apiUrl);
 

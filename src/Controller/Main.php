@@ -63,4 +63,11 @@ class Main
 		$step5 = $Steps->Step5();
 		return $step5;
 	}
+	
+	function Step6()
+	{
+		$Steps = new Steps();
+		$step6 = $Steps->Step6();
+		return $step6;
+	}
 }
