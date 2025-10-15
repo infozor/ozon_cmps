@@ -126,10 +126,12 @@ if ($flag_step2 == true)
 
 	$arrayCreateReport = json_decode($jsonCreateReport, true);
 	$CreateReportId = $arrayCreateReport['response']['id'];
+	$flag_step3 = true;
 }
 else
 {
 	$CreateReportId = 0;
+	$flag_step3 = false;
 }
 
 start4:
@@ -139,14 +141,29 @@ start4:
 
 $CreateReportId = '3062906';
 
-$file = $Main->Step4($campaign_id, $CreateReportId);
+$jsonGetReportStatus = $Main->Step4($campaign_id, $CreateReportId);
 
-//{"response":{"id":3062906,"status":"OK","createdAt":"2025-10-15T17:33:19+03:00","isSuccessfullyFinished":true,
-//"startedAt":"2025-10-15T17:33:20+03:00","finishedAt":"2025-10-15T17:36:54+03:00","countErrorProducts":0,"countOkProducts":1}}
+$date = date('dmy_His');
+$fileGetReportStatus = realpath(__DIR__ . '/../data/') . '/' . 'report_status_' . $date . '.json';
+file_put_contents($fileGetReportStatus, $jsonGetReportStatus, FILE_APPEND);
 
+$arrayGetReportStatus = json_decode($jsonGetReportStatus, true);
 
-$a = 1;
+$ReportStatus = $arrayGetReportStatus['response']['status'];
 
+if ($ReportStatus == 'OK')
+{
+	$flag_step4 = true;
+}
+else
+{
+	$flag_step4 = false;
+}
+
+start5:
+// -----------------------------------------------------------------------------
+// Шаг3 Создание отчёта по кампании GetReportStatus
+// -----------------------------------------------------------------------------
 
 
 
