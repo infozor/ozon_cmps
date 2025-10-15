@@ -102,10 +102,10 @@ class Steps
 
 		return $result;
 	}
-	function Step5()
+	function Step5($campaign_id, $report_id)
 	{
 		$Marketparser = new Marketparser();
-		$result = $Marketparser->methodGetReportResults();
+		$result = $Marketparser->methodGetReportResults($campaign_id, $report_id);
 
 		return $result;
 	}

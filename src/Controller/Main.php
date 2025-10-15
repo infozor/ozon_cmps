@@ -56,10 +56,10 @@ class Main
 	}
 
 	// Шаг5 Получение результатов парсинга отчёта
-	function Step5()
+	function Step5($campaign_id, $report_id)
 	{
 		$Steps = new Steps();
-		$step5 = $Steps->Step5();
+		$step5 = $Steps->Step5($campaign_id, $report_id);
 		return $step5;
 	}
 	function Step6()

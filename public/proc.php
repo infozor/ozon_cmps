@@ -57,7 +57,7 @@ $Main = new Main();
 
 $campaign_id = '55310';
 
-goto start4;
+goto start5_1;
 
 // -----------------------------------------------------------------------------
 // подготовка json файла с товарами
@@ -82,14 +82,16 @@ $file_data = realpath(__DIR__ . '/../data/') . '/' . 'campaigns_' . $date . '.js
 file_put_contents($file_data, $json_list_campaigns, FILE_APPEND);
 
 // -----------------------------------------------------------------------------
-// обновить перезалить прайс лист с товарами UpdatePrice
+// Шаг1 Обновить (перезалить) прайс лист с товарами
+// UpdatePrice
 // -----------------------------------------------------------------------------
 
 $file = $Main->Step1($campaign_id, $json_file_products);
 
 start2:
 // -----------------------------------------------------------------------------
-// Шаг2 Получение информации о прайсе кампании GetPriceStatus
+// Шаг2 Получение информации о прайсе кампании
+// GetPriceStatus
 // -----------------------------------------------------------------------------
 $jsonGetPriceStatus = $Main->Step2($campaign_id);
 
@@ -112,7 +114,8 @@ else
 
 start3:
 // -----------------------------------------------------------------------------
-// Шаг3 Создание отчёта по кампании CreateReport
+// Шаг3 Создание отчёта по кампании
+// CreateReport
 // -----------------------------------------------------------------------------
 
 $flag_step2 = true;
@@ -136,12 +139,15 @@ else
 
 start4:
 // -----------------------------------------------------------------------------
-// Шаг3 Создание отчёта по кампании GetReportStatus
+// Шаг4 Получение информации об отчёте
+// GetReportStatus
 // -----------------------------------------------------------------------------
 
 $CreateReportId = '3062906';
 
-$jsonGetReportStatus = $Main->Step4($campaign_id, $CreateReportId);
+$report_id = $CreateReportId;
+
+$jsonGetReportStatus = $Main->Step4($campaign_id, $report_id);
 
 $date = date('dmy_His');
 $fileGetReportStatus = realpath(__DIR__ . '/../data/') . '/' . 'report_status_' . $date . '.json';
@@ -162,8 +168,42 @@ else
 
 start5:
 // -----------------------------------------------------------------------------
-// Шаг3 Создание отчёта по кампании GetReportStatus
+// //Шаг5 Получение результатов парсинга отчёта
+// GetReportResults
 // -----------------------------------------------------------------------------
 
+$CreateReportId = '3062906';
+$report_id = $CreateReportId;
 
+$jsonGetReportResult = $Main->Step5($campaign_id, $report_id);
+
+$date = date('dmy_His');
+$fileGetReportResult = realpath(__DIR__ . '/../data/') . '/' . 'report_results_' . $date . '.json';
+file_put_contents($fileGetReportResult, $jsonGetReportResult, FILE_APPEND);
+
+start5_1:
+$jsonGetReportResult = file_get_contents('D:\site_next\ozonparsemark\data\report_results_151025_181758.json');
+
+$arrayGetReportResult = json_decode($jsonGetReportResult, true);
+
+if ($arrayGetReportResult['response']['total'] == 1)
+{
+	$offers = $arrayGetReportResult['response']['products'][0]['offers'];
+}
+
+$product = [];
+
+for($i = 0; $i < count($offers); $i++)
+{
+	$product[$i]['id'] = $offers[$i]['modelId'];
+	$product[$i]['card_price'] = $offers[$i]['price_details']['card_price'];
+}
+
+$jsonProductsResult = json_encode($product);
+
+$date = date('dmy_His');
+$fileProductsResult = realpath(__DIR__ . '/../data/') . '/' . 'products_result_' . $date . '.json';
+file_put_contents($fileProductsResult, $jsonProductsResult, FILE_APPEND);
+
+$a = 1;
 

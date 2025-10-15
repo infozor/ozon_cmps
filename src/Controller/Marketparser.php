@@ -219,7 +219,7 @@ class Marketparser
 
 		return $result;
 	}
-	function methodGetReportResults()
+	function methodGetReportResults($campaign_id, $report_id)
 	{
 		$method = 'GetReportResults';
 
@@ -235,9 +235,14 @@ class Marketparser
 		 * $REPORT_ID = '3056408';
 		 */
 
+		/*
 		$CAMPAIGN_ID = '55310';
-
 		$REPORT_ID = '3033811';
+		*/
+		
+		$CAMPAIGN_ID = $campaign_id;
+		$REPORT_ID = $report_id;
+		
 
 		$page_size = 100;
 
