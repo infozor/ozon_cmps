@@ -6,13 +6,11 @@ use App\Controller\Main;
 use App\Controller\ionLogClass;
 
 $Main = new Main();
-
 function get_logs_path()
 {
 	$path = realpath(__DIR__ . '/../log/');
 	return $path;
 }
-
 
 $LogClass = new ionLogClass(get_logs_path());
 
@@ -65,13 +63,11 @@ $LogClass = new ionLogClass(get_logs_path());
  *
  */
 
-
-
 $campaign_id = '55310';
 
-$LogClass->logMethod("start-> campaign_id:". $campaign_id);
+$LogClass->logMethod("start-> campaign_id:" . $campaign_id);
 
-goto start6_1;
+// goto start6_1;
 
 // -----------------------------------------------------------------------------
 // подготовка json файла с товарами
@@ -150,7 +146,7 @@ if ($flag_step2 == true)
 	$arrayCreateReport = json_decode($jsonCreateReport, true);
 	$CreateReportId = $arrayCreateReport['response']['id'];
 	$flag_step3 = true;
-	$LogClass->logMethod("создан отчёт ReportIdId: ".$CreateReportId);
+	$LogClass->logMethod("создан отчёт ReportIdId: " . $CreateReportId);
 }
 else
 {
@@ -166,29 +162,46 @@ start4:
 
 $LogClass->logMethod("Шаг4 Получение информации об отчёте");
 
-//$CreateReportId = '3062906';
+// $CreateReportId = '3062906';
 
 $report_id = $CreateReportId;
 
-$jsonGetReportStatus = $Main->Step4($campaign_id, $report_id);
+$count_iter = 10;
 
-$date = date('dmy_His');
-$fileGetReportStatus = realpath(__DIR__ . '/../data/') . '/' . 'report_status_' . $date . '.json';
-file_put_contents($fileGetReportStatus, $jsonGetReportStatus, FILE_APPEND);
-
-$arrayGetReportStatus = json_decode($jsonGetReportStatus, true);
-
-$ReportStatus = $arrayGetReportStatus['response']['status'];
-
-if ($ReportStatus == 'OK')
+for($i = 0; $i < $count_iter; $i++)
 {
-	$flag_step4 = true;
-}
-else
-{
-	$flag_step4 = false;
+
+	$jsonGetReportStatus = $Main->Step4($campaign_id, $report_id);
+
+	$date = date('dmy_His');
+	$fileGetReportStatus = realpath(__DIR__ . '/../data/') . '/' . 'report_status_' . $date . '.json';
+	file_put_contents($fileGetReportStatus, $jsonGetReportStatus, FILE_APPEND);
+
+	$arrayGetReportStatus = json_decode($jsonGetReportStatus, true);
+
+	$ReportStatus = $arrayGetReportStatus['response']['status'];
+
+	$LogClass->logMethod('проверка: '.$count_iter." статус: " . $ReportStatus);
+	
+	if ($ReportStatus == 'OK')
+	{
+		
+		$flag_step4 = true;
+		break;
+	}
+	else
+	{
+		$flag_step4 = false;
+	}
+	sleep(60);
 }
 
+if ($flag_step4 == false)
+{
+	$LogClass->logMethod("Не хватило времени на ожидание, парсинг не закончен");
+	$LogClass->logMethod("Программа завершена с ошибками");
+	exit();
+}
 start5:
 // -----------------------------------------------------------------------------
 // Шаг5 Получение результатов парсинга отчёта
@@ -196,7 +209,7 @@ start5:
 // -----------------------------------------------------------------------------
 $LogClass->logMethod("Шаг5 Получение результатов парсинга отчёта");
 
-//$CreateReportId = '3062906';
+// $CreateReportId = '3062906';
 $report_id = $CreateReportId;
 
 $jsonGetReportResult = $Main->Step5($campaign_id, $report_id);
@@ -206,7 +219,7 @@ $fileGetReportResult = realpath(__DIR__ . '/../data/') . '/' . 'report_results_'
 file_put_contents($fileGetReportResult, $jsonGetReportResult, FILE_APPEND);
 
 start5_1:
-//$jsonGetReportResult = file_get_contents('D:\site_next\ozonparsemark\data\report_results_151025_181758.json');
+// $jsonGetReportResult = file_get_contents('D:\site_next\ozonparsemark\data\report_results_151025_181758.json');
 
 $arrayGetReportResult = json_decode($jsonGetReportResult, true);
 

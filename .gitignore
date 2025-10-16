@@ -2,4 +2,5 @@
 /.project
 /config/*
 /data/*
+/log/*
 /aa_.log
