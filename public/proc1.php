@@ -292,21 +292,23 @@ start6_1:
 
 $arrayGetCampaignsReports = json_decode($jsonGetCampaignsReports, true);
 
-$LogClass->logMethod("Программа завершена");
-$LogClass->logMethod("------ finish <- campaign_id:" . $campaign_id);
 
-$a = 1;
 
 // -----------------------------------------------------------------------------
 // //Шаг7 Обновление таблицы с товарами - установка найденных цен
 //
 // -----------------------------------------------------------------------------
-step7:
+
+$LogClass->logMethod("Шаг7 Обновление таблицы с товарами - установка найденных цен");
+
 $date = '';
 $fileProductsResult = realpath(__DIR__ . '/../data/') . '/' . 'products_result_' . $date . '.json';
 $json_file_products = file_get_contents($fileProductsResult);
 
-$Main->Step7($json_file_products);
+$k = $Main->Step7($json_file_products);
 
+$LogClass->logMethod("Обновлено ".$k.' товаров');
 
+$LogClass->logMethod("Программа завершена");
+$LogClass->logMethod("------ finish <- campaign_id:" . $campaign_id);
 

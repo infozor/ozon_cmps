@@ -126,6 +126,9 @@ class Steps
 
 		$this->Db = new Db();
 		
+		
+		$k = 0;
+		
 		for($i = 0; $i < count($arrayProducts); $i++)
 		{
 			$params['product_id'] = $arrayProducts[$i]['id'];
@@ -134,11 +137,12 @@ class Steps
 			if ($params['price_with_ozon_card'] != 0)
 			{
 				$result = $this->Db->update_ozon_product_info($params);
+				$k++;
 			}
 		}
 
 		
 
-		return true;
+		return $k;
 	}
 }
