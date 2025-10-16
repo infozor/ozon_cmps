@@ -57,7 +57,7 @@ $Main = new Main();
 
 $campaign_id = '55310';
 
-goto start6;
+goto start6_1;
 
 // -----------------------------------------------------------------------------
 // подготовка json файла с товарами
@@ -219,3 +219,9 @@ $fileGetCampaignsReports = realpath(__DIR__ . '/../data/') . '/' . 'campaign_rep
 file_put_contents($fileGetCampaignsReports, $jsonGetCampaignsReports, FILE_APPEND);
 
 start6_1:
+
+$jsonGetCampaignsReports = file_get_contents('D:\site_next\ozonparsemark\data\campaign_reports_161025_094258.json');
+
+$arrayGetCampaignsReports = json_decode($jsonGetCampaignsReports, true);
+
+$a = 1; 
