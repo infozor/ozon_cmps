@@ -252,7 +252,9 @@ class Marketparser
 
 		return $result;
 	}
-	function methodGetCampaignsReports()
+	
+	// Шаг6 Получение списка отчётов кампании
+	function methodGetCampaignsReports($campaign_id)
 	{
 		$method = 'GetCampaignsReports';
 
@@ -261,7 +263,7 @@ class Marketparser
 		$apiMethodPart[1] = $this->config['marketparser']['api']['methods'][$method]['method_part1'];
 
 		// $CAMPAIGN_ID = '55312';
-		$CAMPAIGN_ID = '55310';
+		//$CAMPAIGN_ID = '55310';
 
 		// $REPORT_ID = '3056408';
 
@@ -270,6 +272,8 @@ class Marketparser
 		 *
 		 * $REPORT_ID = '3033811';
 		 */
+		
+		$CAMPAIGN_ID = $campaign_id;
 
 		$apiUrl = $this->apiMainUrl . $apiMethodPart[0] . $CAMPAIGN_ID . $apiMethodPart[1];
 

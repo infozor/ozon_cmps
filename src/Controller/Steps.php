@@ -109,10 +109,12 @@ class Steps
 
 		return $result;
 	}
-	function Step6()
+	
+	// Шаг6 Получение списка отчётов кампании
+	function Step6($campaign_id)
 	{
 		$Marketparser = new Marketparser();
-		$result = $Marketparser->methodGetCampaignsReports();
+		$result = $Marketparser->methodGetCampaignsReports($campaign_id);
 
 		return $result;
 	}

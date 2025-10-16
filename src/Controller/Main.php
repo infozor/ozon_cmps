@@ -62,10 +62,12 @@ class Main
 		$step5 = $Steps->Step5($campaign_id, $report_id);
 		return $step5;
 	}
-	function Step6()
+	
+	// Шаг6 Получение списка отчётов кампании
+	function Step6($campaign_id)
 	{
 		$Steps = new Steps();
-		$step6 = $Steps->Step6();
+		$step6 = $Steps->Step6($campaign_id);
 		return $step6;
 	}
 }
