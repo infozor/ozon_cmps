@@ -36,7 +36,7 @@ function delete_files($directory)
 
 $campaign_id = '55310';
 
-goto step7;
+
 
 $LogClass->logMethod("------ start-> campaign_id:" . $campaign_id);
 
@@ -286,7 +286,7 @@ $date = ''; // date('dmy_His');
 $fileGetCampaignsReports = realpath(__DIR__ . '/../data/') . '/' . 'campaign_reports_' . $date . '.json';
 file_put_contents($fileGetCampaignsReports, $jsonGetCampaignsReports, FILE_APPEND);
 
-start6_1:
+
 
 // $jsonGetCampaignsReports = file_get_contents('D:\site_next\ozonparsemark\data\campaign_reports_161025_094258.json');
 
