@@ -391,6 +391,77 @@ class Db
 		return $rows;
 	}
 	
+	function update_ozon_product_info_($params)
+	{
+		// @params
+		$id = $params['id'];
+		$id_product_list = $params['id_product_list'];
+		$product_id = $params['product_id'];
+		$offer_id = $params['offer_id'];
+		$images = $params['images'];
+		$barcode = $params['barcode'];
+		$name = $params['name'];
+		$old_price = $params['old_price'];
+		$price = $params['price'];
+		$min_price = $params['min_price'];
+		$marketing_price = $params['marketing_price'];
+		$minimal_price = $params['minimal_price'];
+		$price_with_ozon_card = $params['price_with_ozon_card'];
+		$price_index_value = $params['price_index_value'];
+		$stock_present = $params['stock_present'];
+		$fbo_sku = $params['fbo_sku'];
+		$fbs_sku = $params['fbs_sku'];
+		$created_at = $params['created_at'];
+		$sqlstr = sprintf("
+        UPDATE
+          public.ozon_product_info
+        SET
+          id_product_list = '%s', --id_product_list
+			  product_id = '%s', --product_id
+			  offer_id = '%s', --offer_id
+			  images = '%s', --images
+			  barcode = '%s', --barcode
+			  name = '%s', --name
+			  old_price = '%s', --old_price
+			  price = '%s', --price
+			  min_price = '%s', --min_price
+			  marketing_price = '%s', --marketing_price
+			  minimal_price = '%s', --minimal_price
+			  price_with_ozon_card = '%s', --price_with_ozon_card
+			  price_index_value = '%s', --price_index_value
+			  stock_present = '%s', --stock_present
+			  fbo_sku = '%s', --fbo_sku
+			  fbs_sku = '%s', --fbs_sku
+			  created_at = '%s' --created_at
+				
+        WHERE
+          id = '%s'
+        ;
+        ", $id_product_list, $product_id, $offer_id, $images, $barcode, $name, $old_price, $price, $min_price, $marketing_price, $minimal_price, $price_with_ozon_card, $price_index_value, $stock_present, $fbo_sku, $fbs_sku, $created_at, $id);
+		
+		$stmt = $this->conn->prepare($sqlstr);
+		$stmt->execute();
+	}
+	
+	function update_ozon_product_info($params)
+	{
+		// @params
+		$product_id = $params['product_id'];
+		$price_with_ozon_card = $params['price_with_ozon_card'];
+		$sqlstr = sprintf("
+        UPDATE
+          public.ozon_product_info
+        SET
+			  price_with_ozon_card = '%s' --price_with_ozon_card
+        WHERE
+          product_id = '%s'
+        ;
+        ",  $price_with_ozon_card, $product_id);
+		
+		$stmt = $this->conn->prepare($sqlstr);
+		$stmt->execute();
+	}
+	
 	function transformBoolean($value)
 	{
 		if ($value)

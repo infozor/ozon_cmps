@@ -70,4 +70,12 @@ class Main
 		$step6 = $Steps->Step6($campaign_id);
 		return $step6;
 	}
+	
+	//Шаг7 Обновление таблицы с товарами - установка найденных цен
+	function Step7($json)
+	{
+		$Steps = new Steps();
+		$step6 = $Steps->Step7($json);
+		return $step6;
+	}
 }

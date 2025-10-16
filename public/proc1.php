@@ -32,7 +32,11 @@ function delete_files($directory)
 	}
 }
 
+
+
 $campaign_id = '55310';
+
+goto step7;
 
 $LogClass->logMethod("------ start-> campaign_id:" . $campaign_id);
 
@@ -139,18 +143,15 @@ if ($flag_step2 == true)
 
 		$arrayCreateReport = json_decode($jsonCreateReport, true);
 
-		
-
 		$CreateReportId = $arrayCreateReport['response']['id'];
 
 		if (isset($arrayCreateReport['response']['id']))
 		{
 			$CreateReportId = $arrayCreateReport['response']['id'];
-			
 		}
 		else
 		{
-			
+
 			echo "ID не найден в массиве";
 			var_dump($arrayCreateReport);
 			exit();
@@ -294,4 +295,18 @@ $arrayGetCampaignsReports = json_decode($jsonGetCampaignsReports, true);
 $LogClass->logMethod("Программа завершена");
 $LogClass->logMethod("------ finish <- campaign_id:" . $campaign_id);
 
-$a = 1; 
+$a = 1;
+
+// -----------------------------------------------------------------------------
+// //Шаг7 Обновление таблицы с товарами - установка найденных цен
+//
+// -----------------------------------------------------------------------------
+step7:
+$date = '';
+$fileProductsResult = realpath(__DIR__ . '/../data/') . '/' . 'products_result_' . $date . '.json';
+$json_file_products = file_get_contents($fileProductsResult);
+
+$Main->Step7($json_file_products);
+
+
+

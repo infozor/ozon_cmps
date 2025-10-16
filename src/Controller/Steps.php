@@ -9,7 +9,7 @@ class Steps
 	public $Db;
 	function __construct()
 	{
-		$date = '';//date('dmy_His');
+		$date = ''; // date('dmy_His');
 		$this->file_data = realpath(__DIR__ . '/../../data/') . '/' . 'products_' . $date . '.json';
 	}
 	// подготовка json файла с продуктами
@@ -109,7 +109,7 @@ class Steps
 
 		return $result;
 	}
-	
+
 	// Шаг6 Получение списка отчётов кампании
 	function Step6($campaign_id)
 	{
@@ -117,5 +117,28 @@ class Steps
 		$result = $Marketparser->methodGetCampaignsReports($campaign_id);
 
 		return $result;
+	}
+
+	// Шаг7 Обновление таблицы с товарами - установка найденных цен
+	function Step7($json)
+	{
+		$arrayProducts = json_decode($json, true);
+
+		$this->Db = new Db();
+		
+		for($i = 0; $i < count($arrayProducts); $i++)
+		{
+			$params['product_id'] = $arrayProducts[$i]['id'];
+			$params['price_with_ozon_card'] = $arrayProducts[$i]['card_price'];
+
+			if ($params['price_with_ozon_card'] != 0)
+			{
+				$result = $this->Db->update_ozon_product_info($params);
+			}
+		}
+
+		
+
+		return true;
 	}
 }
