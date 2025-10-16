@@ -13,59 +13,32 @@ function get_logs_path()
 }
 
 $LogClass = new ionLogClass(get_logs_path());
+function delete_files($directory)
+{
+	if (is_dir($directory))
+	{
 
-/*
- *
- * "ListCampaigns": {
- * "type": "GET",
- * "method_part0": "campaigns.json"
- * },
- * "UpdatePrice": {
- * "type": "POST",
- * "method_part0": "campaigns/",
- * "method_var0": "CAMPAIGN_ID",
- * "method_part1": "/price.json"
- * },
- * "GetPriceStatus": {
- * "type": "GET",
- * "method_part0": "campaigns/",
- * "method_var0": "CAMPAIGN_ID",
- * "method_part1": "/price.json"
- * },
- * "CreateReport": {
- * "type": "POST",
- * "method_part0": "campaigns/",
- * "method_var0": "CAMPAIGN_ID",
- * "method_part1": "/reports.json"
- * },
- * "GetReportStatus": {
- * "type": "POST",
- * "method_part0": "campaigns/",
- * "method_var0": "CAMPAIGN_ID",
- * "method_part1": "/reports/",
- * "method_var1": "REPORT_ID",
- * "method_part2": ".json"
- * },
- * "GetReportResults": {
- * "type": "GET",
- * "method_part0": "campaigns/",
- * "method_var0": "CAMPAIGN_ID",
- * "method_part1": "/reports/",
- * "method_var1": "REPORT_ID",
- * "method_part2": "/results.json"
- * },
- * "GetCampaignsReports": {
- * "type": "GET",
- * "method_part0": "campaigns/",
- * "method_var0": "CAMPAIGN_ID",
- * "method_part1": "/reports.json"
- * }
- *
- */
+		$files = glob($directory . "/*.json");
+		foreach ( $files as $file )
+		{
+			if (is_file($file))
+			{
+				unlink($file); // удаляем файл
+			}
+		}
+	}
+	else
+	{
+	}
+}
 
 $campaign_id = '55310';
 
-$LogClass->logMethod("start-> campaign_id:" . $campaign_id);
+$LogClass->logMethod("------ start-> campaign_id:" . $campaign_id);
+
+$directory = realpath(__DIR__ . '/../data/');
+
+delete_files($directory);
 
 // goto start6_1;
 
@@ -75,9 +48,9 @@ $LogClass->logMethod("start-> campaign_id:" . $campaign_id);
 $LogClass->logMethod("подготовка json файла с товарами");
 $file_products = $Main->Step00();
 // $file_products = 'D:\site_next\ozonparsemark\data/products_151025_140228.json';
-$json_file_products = file_get_contents($file_products);
+// $json_file_products = file_get_contents($file_products);
 
-// $json_file_products = $file_products;
+$json_file_products = $file_products;
 
 $array_file_products = json_decode($json_file_products, true);
 
@@ -89,7 +62,7 @@ $json_list_campaigns = $Main->Step01();
 
 $array_list_campaigns = json_decode($json_list_campaigns, true);
 
-$date = date('dmy_His');
+$date = ''; // date('dmy_His');
 $file_data = realpath(__DIR__ . '/../data/') . '/' . 'campaigns_' . $date . '.json';
 file_put_contents($file_data, $json_list_campaigns, FILE_APPEND);
 
@@ -107,23 +80,42 @@ start2:
 // GetPriceStatus
 // -----------------------------------------------------------------------------
 $LogClass->logMethod("Шаг2 Получение информации о прайсе кампании");
-$jsonGetPriceStatus = $Main->Step2($campaign_id);
 
-$date = date('dmy_His');
-$fileGetPriceStatus = realpath(__DIR__ . '/../data/') . '/' . 'price_status_' . $date . '.json';
-file_put_contents($fileGetPriceStatus, $jsonGetPriceStatus, FILE_APPEND);
+$count_iter = 10;
 
-$arrayGetPriceStatus = json_decode($jsonGetPriceStatus, true);
-
-if ($arrayGetPriceStatus['response']['status'] == 'PROCESSED')
+for($i = 0; $i < $count_iter; $i++)
 {
-	$GetPriceStatusId = $arrayGetPriceStatus['response']['id'];
-	$flag_step2 = true;
+
+	$jsonGetPriceStatus = $Main->Step2($campaign_id);
+
+	$date = ''; // date('dmy_His');
+	$fileGetPriceStatus = realpath(__DIR__ . '/../data/') . '/' . 'price_status_' . $date . '.json';
+	file_put_contents($fileGetPriceStatus, $jsonGetPriceStatus, FILE_APPEND);
+
+	$arrayGetPriceStatus = json_decode($jsonGetPriceStatus, true);
+
+	$LogClass->logMethod('проверка: ' . ($i + 1) . " статус: " . $arrayGetPriceStatus['response']['status']);
+
+	if ($arrayGetPriceStatus['response']['status'] == 'PROCESSED')
+	{
+		$GetPriceStatusId = $arrayGetPriceStatus['response']['id'];
+		$flag_step2 = true;
+		break;
+	}
+	else
+	{
+		if ($arrayGetPriceStatus['response']['status'] == 'READY_TO_BE_PARSED')
+		{
+		}
+	}
 }
-else
+if (!($arrayGetPriceStatus['response']['status'] == 'PROCESSED'))
 {
 	$GetPriceStatus_id = 0;
 	$flag_step2 = false;
+	$LogClass->logMethod("не получена");
+	var_dump($arrayGetPriceStatus);
+	exit();
 }
 
 start3:
@@ -134,19 +126,45 @@ start3:
 
 $LogClass->logMethod("Шаг3 Создание отчёта по кампании");
 
-$flag_step2 = true;
+// $flag_step2 = true;
 if ($flag_step2 == true)
 {
-	$jsonCreateReport = $Main->Step3($campaign_id);
+	try
+	{
+		$jsonCreateReport = $Main->Step3($campaign_id);
 
-	$date = date('dmy_His');
-	$fileCreateReport = realpath(__DIR__ . '/../data/') . '/' . 'create_report_' . $date . '.json';
-	file_put_contents($fileCreateReport, $jsonCreateReport, FILE_APPEND);
+		$date = ''; // date('dmy_His');
+		$fileCreateReport = realpath(__DIR__ . '/../data/') . '/' . 'create_report_' . $date . '.json';
+		file_put_contents($fileCreateReport, $jsonCreateReport, FILE_APPEND);
 
-	$arrayCreateReport = json_decode($jsonCreateReport, true);
-	$CreateReportId = $arrayCreateReport['response']['id'];
-	$flag_step3 = true;
-	$LogClass->logMethod("создан отчёт ReportIdId: " . $CreateReportId);
+		$arrayCreateReport = json_decode($jsonCreateReport, true);
+
+		
+
+		$CreateReportId = $arrayCreateReport['response']['id'];
+
+		if (isset($arrayCreateReport['response']['id']))
+		{
+			$CreateReportId = $arrayCreateReport['response']['id'];
+			
+		}
+		else
+		{
+			
+			echo "ID не найден в массиве";
+			var_dump($arrayCreateReport);
+			exit();
+		}
+
+		$flag_step3 = true;
+		$LogClass->logMethod("создан отчёт ReportIdId: " . $CreateReportId);
+	}
+	catch ( Exception $e )
+	{
+
+		echo "Ошибка: " . $e->getMessage();
+		exit();
+	}
 }
 else
 {
@@ -170,28 +188,37 @@ $count_iter = 10;
 
 for($i = 0; $i < $count_iter; $i++)
 {
-
-	$jsonGetReportStatus = $Main->Step4($campaign_id, $report_id);
-
-	$date = date('dmy_His');
-	$fileGetReportStatus = realpath(__DIR__ . '/../data/') . '/' . 'report_status_' . $date . '.json';
-	file_put_contents($fileGetReportStatus, $jsonGetReportStatus, FILE_APPEND);
-
-	$arrayGetReportStatus = json_decode($jsonGetReportStatus, true);
-
-	$ReportStatus = $arrayGetReportStatus['response']['status'];
-
-	$LogClass->logMethod('проверка: '.$count_iter." статус: " . $ReportStatus);
-	
-	if ($ReportStatus == 'OK')
+	try
 	{
-		
-		$flag_step4 = true;
-		break;
+
+		$jsonGetReportStatus = $Main->Step4($campaign_id, $report_id);
+
+		$date = ''; // date('dmy_His');
+		$fileGetReportStatus = realpath(__DIR__ . '/../data/') . '/' . 'report_status_' . $date . '.json';
+		file_put_contents($fileGetReportStatus, $jsonGetReportStatus, FILE_APPEND);
+
+		$arrayGetReportStatus = json_decode($jsonGetReportStatus, true);
+
+		$ReportStatus = $arrayGetReportStatus['response']['status'];
+
+		$LogClass->logMethod('проверка: ' . ($i + 1) . " статус: " . $ReportStatus);
+
+		if ($ReportStatus == 'OK')
+		{
+
+			$flag_step4 = true;
+			break;
+		}
+		else
+		{
+			$flag_step4 = false;
+		}
 	}
-	else
+	catch ( Exception $e )
 	{
-		$flag_step4 = false;
+
+		echo "Ошибка: " . $e->getMessage();
+		exit();
 	}
 	sleep(60);
 }
@@ -214,7 +241,7 @@ $report_id = $CreateReportId;
 
 $jsonGetReportResult = $Main->Step5($campaign_id, $report_id);
 
-$date = date('dmy_His');
+$date = ''; // date('dmy_His');
 $fileGetReportResult = realpath(__DIR__ . '/../data/') . '/' . 'report_results_' . $date . '.json';
 file_put_contents($fileGetReportResult, $jsonGetReportResult, FILE_APPEND);
 
@@ -233,12 +260,14 @@ $product = [];
 for($i = 0; $i < count($offers); $i++)
 {
 	$product[$i]['id'] = $offers[$i]['modelId'];
-	$product[$i]['card_price'] = $offers[$i]['price_details']['card_price'];
+	$product[$i]['card_price'] = $offers[$i]['price_details']['card_price'] ?? null;
+
+	// $product[$i]['card_price'] = $offers[$i]['price_details']['card_price'];
 }
 
 $jsonProductsResult = json_encode($product);
 
-$date = date('dmy_His');
+$date = ''; // date('dmy_His');
 $fileProductsResult = realpath(__DIR__ . '/../data/') . '/' . 'products_result_' . $date . '.json';
 file_put_contents($fileProductsResult, $jsonProductsResult, FILE_APPEND);
 
@@ -252,14 +281,17 @@ $LogClass->logMethod("Шаг6 Получение списка отчётов к�
 
 start6:
 $jsonGetCampaignsReports = $Main->Step6($campaign_id);
-$date = date('dmy_His');
+$date = ''; // date('dmy_His');
 $fileGetCampaignsReports = realpath(__DIR__ . '/../data/') . '/' . 'campaign_reports_' . $date . '.json';
 file_put_contents($fileGetCampaignsReports, $jsonGetCampaignsReports, FILE_APPEND);
 
 start6_1:
 
-$jsonGetCampaignsReports = file_get_contents('D:\site_next\ozonparsemark\data\campaign_reports_161025_094258.json');
+// $jsonGetCampaignsReports = file_get_contents('D:\site_next\ozonparsemark\data\campaign_reports_161025_094258.json');
 
 $arrayGetCampaignsReports = json_decode($jsonGetCampaignsReports, true);
+
+$LogClass->logMethod("Программа завершена");
+$LogClass->logMethod("------ finish <- campaign_id:" . $campaign_id);
 
 $a = 1; 

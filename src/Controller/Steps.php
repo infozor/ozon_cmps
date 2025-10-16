@@ -9,7 +9,7 @@ class Steps
 	public $Db;
 	function __construct()
 	{
-		$date = date('dmy_His');
+		$date = '';//date('dmy_His');
 		$this->file_data = realpath(__DIR__ . '/../../data/') . '/' . 'products_' . $date . '.json';
 	}
 	// подготовка json файла с продуктами
