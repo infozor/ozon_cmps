@@ -5,12 +5,16 @@ namespace App\Controller;
 class Steps
 {
 	public $file_data;
+	private $file_data_url;
+	private $file_data_url_csv;
 	public $Ozon;
 	public $Db;
 	function __construct()
 	{
 		$date = ''; // date('dmy_His');
 		$this->file_data = realpath(__DIR__ . '/../../data/') . '/' . 'products_' . $date . '.json';
+		$this->file_data_url = realpath(__DIR__ . '/../../data/') . '/' . 'products_url_' . $date . '.json';
+		$this->file_data_url_csv = realpath(__DIR__ . '/../../data/') . '/' . 'products_url_csv_' . $date . '.csv';
 	}
 	// подготовка json файла с продуктами
 	function Step00()
@@ -29,7 +33,8 @@ class Steps
 			$products[] = [
 					'name' => $name,
 					'cost' => 0,
-					'id' => $clean_barcode
+					'id' => $clean_barcode,
+					'yandex_model_id' =>  'https://www.ozon.ru/product/'.$clean_barcode
 			];
 		}
 
@@ -145,4 +150,73 @@ class Steps
 
 		return $k;
 	}
+	
+	function StepListUrl()
+	{
+		$this->Db = new Db();
+		$fetch = $this->Db->get_ozon_products_info_price_ozon_card();
+		
+		$products = [];
+		
+		foreach ( $fetch as $item )
+		{
+			$name = $item['name'] ?? null;
+			$barcode = $item['barcode'] ?? '';
+			$clean_barcode = str_replace('OZN', '', $barcode);
+			
+			$products[] = [
+					'name' => $name,
+					'cost' => 0,
+					'id' => $clean_barcode,
+					'yandex_model_id' =>  'https://www.ozon.ru/product/'.$clean_barcode
+			];
+		}
+		
+		// $json = json_encode(array_values($products), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+		// $body = json_encode(['products' => $products], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+		$body = json_encode([
+				'products' => $products
+		]);
+		
+		$data = $body;
+		
+		file_put_contents($this->file_data_url, $data);
+		
+		return $this->file_data_url;
+	}
+	
+	function StepListUrlCSV()
+	{
+		$this->Db = new Db();
+		$fetch = $this->Db->get_ozon_products_info_price_ozon_card();
+		
+		// Открываем файл для записи CSV
+		$file = fopen($this->file_data_url_csv, 'w');
+		
+		// Записываем заголовки CSV
+		fputcsv($file, ['name', 'cost', 'id', 'url']);
+		
+		foreach ($fetch as $item) {
+			$name = $item['name'] ?? null;
+			$barcode = $item['barcode'] ?? '';
+			$clean_barcode = str_replace('OZN', '', $barcode);
+			
+			// Формируем строку для CSV
+			$row = [
+					'name' => $name,
+					'cost' => 0,
+					'id' => $clean_barcode,
+					'url' => 'https://www.ozon.ru/product/' . $clean_barcode
+			];
+			
+			// Записываем строку в CSV
+			fputcsv($file, $row);
+		}
+		
+		// Закрываем файл
+		fclose($file);
+		
+		return $this->file_data_url_csv;
+	}
+	
 }

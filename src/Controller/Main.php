@@ -78,4 +78,20 @@ class Main
 		$step6 = $Steps->Step7($json);
 		return $step6;
 	}
+	
+	function StepListUrl()
+	{
+		$Steps = new Steps();
+		// формирование списка url с продуктами
+		$step1 = $Steps->StepListUrl();
+		return $step1;
+	}
+	
+	function StepListUrlCSV()
+	{
+		$Steps = new Steps();
+		// формирование списка csv с продуктами
+		$step1 = $Steps->StepListUrlCSV();
+		return $step1;
+	}
 }
