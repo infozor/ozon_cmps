@@ -38,7 +38,7 @@ $campaign_id = '55312';
 // goto start5;
 // goto step01;
 
-// goto start7;
+//goto start7;
 //goto start5_1;
 
 $LogClass->logMethod("------ start-> campaign_id:" . $campaign_id);
@@ -345,7 +345,7 @@ start7:
 $LogClass->logMethod("Шаг7 Обновление таблицы с товарами - установка найденных цен");
 
 $date = '';
-$fileProductsResult = realpath(__DIR__ . '/../data/') . '/' . 'products_results_' . $date . '.json';
+$fileProductsResult = realpath(__DIR__ . '/../data/') . '/' . 'products_result_' . $date . '.json';
 $json_file_products = file_get_contents($fileProductsResult);
 
 $k = $Main->Step7($json_file_products);

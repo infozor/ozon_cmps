@@ -446,17 +446,18 @@ class Db
 	function update_ozon_product_info($params)
 	{
 		// @params
-		$product_id = $params['product_id'];
+		$product_id = 'OZN'.$params['product_id'];
 		$price_with_ozon_card = $params['price_with_ozon_card'];
+		
+		
 		$sqlstr = sprintf("
-        UPDATE
-          public.ozon_product_info
-        SET
-			  price_with_ozon_card = '%s' --price_with_ozon_card
-        WHERE
-          product_id = '%s'
-        ;
-        ",  $price_with_ozon_card, $product_id);
+							UPDATE
+							  public.ozon_product_info
+							SET
+							  price_with_ozon_card = '%s' --price_with_ozon_card
+							WHERE
+							  barcode = '%s'
+                           ",  $price_with_ozon_card, $product_id);
 		
 		$stmt = $this->conn->prepare($sqlstr);
 		$stmt->execute();
