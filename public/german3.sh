@@ -1,23 +1,23 @@
 #! /bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          IonBpiumServer
+# Provides:          IonParcemarkServer
 # Required-Start:    $all
 # Required-Stop:     $all
 # Default-Start:     2 3 4 5
 # Default-Stop:      0 1 6
-# Short-Description: starts IonBpiumServer
-# Description:       starts IonBpiumServer using start-stop-daemon
+# Short-Description: starts IonParcemarkServer
+# Description:       starts IonParcemarkServer using start-stop-daemon
 ### END INIT INFO
 
 # Load the VERBOSE setting and other rcS variables
 . /lib/init/vars.sh
 
 DAEMON=/usr/bin/php
-DAEMON_OPTS='/var/www/ozonbpium/public/socket_server.php start'
+DAEMON_OPTS='/var/www/ozonparcemark/public/socket_server.php start'
 
-NAME=IonBpiumServer
-DESC=IonBpiumServer
+NAME=IonParcemarkServer
+DESC=IonParcemarkServer
 PIDFILE="/var/run/${NAME}.pid"
 LOGFILE="/var/log/${NAME}.log"
 START_OPTS="--start --background --make-pidfile --pidfile ${PIDFILE} --exec ${DAEMON} ${DAEMON_OPTS}"
