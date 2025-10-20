@@ -318,7 +318,7 @@ $fileProductsResult = realpath(__DIR__ . '/../data/') . '/' . 'products_result_'
 file_put_contents($fileProductsResult, $jsonProductsResult, FILE_APPEND);
 
 // $a = 1;
-exit();
+//exit();
 // -----------------------------------------------------------------------------
 // Шаг6 Получение списка отчётов кампании
 // GetCampaignsReports
