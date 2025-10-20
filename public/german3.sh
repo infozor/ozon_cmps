@@ -1,7 +1,7 @@
 #! /bin/sh
 
 ### BEGIN INIT INFO
-# Provides:          IonParcemarkServer
+# Provides:          IonParsemarkServer
 # Required-Start:    $all
 # Required-Stop:     $all
 # Default-Start:     2 3 4 5
