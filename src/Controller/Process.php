@@ -358,7 +358,7 @@ class Process
 		$LogClass->logMethod("Программа завершена");
 		$LogClass->logMethod("------ finish <- campaign_id:" . $campaign_id);
 
-		echo 'finish';
+		return 'finish';
 	}
 }
 

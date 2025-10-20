@@ -53,7 +53,7 @@ while ( true )
 	$campaign_id = $input;
 	//$campaign_id = '55312';
 	
-	$Process->run($campaign_id);
+	$result = $Process->run($campaign_id);
 	 
 	
 	
