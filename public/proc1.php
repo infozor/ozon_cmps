@@ -5,6 +5,9 @@ require $path . '/' . 'autoload.php';
 use App\Controller\Main;
 use App\Controller\ionLogClass;
 
+
+date_default_timezone_set('Europe/Moscow');
+
 $Main = new Main();
 function get_logs_path()
 {
