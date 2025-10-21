@@ -20,7 +20,10 @@ class Steps
 	function Step00()
 	{
 		$this->Db = new Db();
-		$fetch = $this->Db->get_ozon_products_info_price_ozon_card();
+		
+		$count = 2;
+		
+		$fetch = $this->Db->get_ozon_products_info_price_ozon_card($count);
 
 		$products = [];
 

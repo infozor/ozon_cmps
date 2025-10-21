@@ -77,7 +77,7 @@ class Process
 		$array_list_campaigns = json_decode($json_list_campaigns, true);
 
 		$date = ''; // date('dmy_His');
-		$file_data = realpath(__DIR__ . '/../data/') . '/' . 'campaigns_' . $date . '.json';
+		$file_data = realpath(__DIR__ . '/../../data/') . '/' . 'campaigns_' . $date . '.json';
 		file_put_contents($file_data, $json_list_campaigns, FILE_APPEND);
 
 		/*
@@ -109,7 +109,7 @@ class Process
 			$jsonGetPriceStatus = $Main->Step2($campaign_id);
 
 			$date = ''; // date('dmy_His');
-			$fileGetPriceStatus = realpath(__DIR__ . '/../data/') . '/' . 'price_status_' . $date . '.json';
+			$fileGetPriceStatus = realpath(__DIR__ . '/../../data/') . '/' . 'price_status_' . $date . '.json';
 			file_put_contents($fileGetPriceStatus, $jsonGetPriceStatus, FILE_APPEND);
 
 			$arrayGetPriceStatus = json_decode($jsonGetPriceStatus, true);
@@ -154,7 +154,7 @@ class Process
 				$jsonCreateReport = $Main->Step3($campaign_id);
 
 				$date = ''; // date('dmy_His');
-				$fileCreateReport = realpath(__DIR__ . '/../data/') . '/' . 'create_report_' . $date . '.json';
+				$fileCreateReport = realpath(__DIR__ . '/../../data/') . '/' . 'create_report_' . $date . '.json';
 				file_put_contents($fileCreateReport, $jsonCreateReport, FILE_APPEND);
 
 				$arrayCreateReport = json_decode($jsonCreateReport, true);
@@ -211,7 +211,7 @@ class Process
 				$jsonGetReportStatus = $Main->Step4($campaign_id, $report_id);
 
 				$date = ''; // date('dmy_His');
-				$fileGetReportStatus = realpath(__DIR__ . '/../data/') . '/' . 'report_status_' . $date . '.json';
+				$fileGetReportStatus = realpath(__DIR__ . '/../../data/') . '/' . 'report_status_' . $date . '.json';
 				file_put_contents($fileGetReportStatus, $jsonGetReportStatus, FILE_APPEND);
 
 				$arrayGetReportStatus = json_decode($jsonGetReportStatus, true);
@@ -264,7 +264,7 @@ class Process
 		$jsonGetReportResult = $Main->Step5($campaign_id, $report_id);
 
 		$date = ''; // date('dmy_His');
-		$fileGetReportResult = realpath(__DIR__ . '/../data/') . '/' . 'report_results_' . $date . '.json';
+		$fileGetReportResult = realpath(__DIR__ . '/../../data/') . '/' . 'report_results_' . $date . '.json';
 		file_put_contents($fileGetReportResult, $jsonGetReportResult, FILE_APPEND);
 
 		start5_1:
@@ -317,7 +317,7 @@ class Process
 		$jsonProductsResult = json_encode($product);
 
 		$date = ''; // date('dmy_His');
-		$fileProductsResult = realpath(__DIR__ . '/../data/') . '/' . 'products_result_' . $date . '.json';
+		$fileProductsResult = realpath(__DIR__ . '/../../data/') . '/' . 'products_result_' . $date . '.json';
 		file_put_contents($fileProductsResult, $jsonProductsResult, FILE_APPEND);
 
 		// $a = 1;
@@ -331,7 +331,7 @@ class Process
 		start6:
 		$jsonGetCampaignsReports = $Main->Step6($campaign_id);
 		$date = ''; // date('dmy_His');
-		$fileGetCampaignsReports = realpath(__DIR__ . '/../data/') . '/' . 'campaign_reports_' . $date . '.json';
+		$fileGetCampaignsReports = realpath(__DIR__ . '/../../data/') . '/' . 'campaign_reports_' . $date . '.json';
 		file_put_contents($fileGetCampaignsReports, $jsonGetCampaignsReports, FILE_APPEND);
 
 		// $jsonGetCampaignsReports = file_get_contents('D:\site_next\ozonparsemark\data\campaign_reports_161025_094258.json');
@@ -348,7 +348,7 @@ class Process
 		$LogClass->logMethod("Шаг7 Обновление таблицы с товарами - установка найденных цен");
 
 		$date = '';
-		$fileProductsResult = realpath(__DIR__ . '/../data/') . '/' . 'products_result_' . $date . '.json';
+		$fileProductsResult = realpath(__DIR__ . '/../../data/') . '/' . 'products_result_' . $date . '.json';
 		$json_file_products = file_get_contents($fileProductsResult);
 
 		$k = $Main->Step7($json_file_products);

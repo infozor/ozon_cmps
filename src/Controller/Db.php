@@ -351,7 +351,7 @@ class Db
 		return $rows;
 	}
 	
-	function get_ozon_products_info_price_ozon_card()
+	function get_ozon_products_info_price_ozon_card($count)
 	{
 		
 		
@@ -382,8 +382,9 @@ class Db
 							  price_with_ozon_card > 0
 							ORDER BY
 							  id
+                            LIMIT %s
 				
-			", null);
+			", $count);
 		
 		$stmt = $this->conn->prepare($sqlstr);
 		$stmt->execute();
