@@ -21,7 +21,7 @@ class Steps
 	{
 		$this->Db = new Db();
 		
-		$count = 2;
+		$count = 200;
 		
 		$fetch = $this->Db->get_ozon_products_info_price_ozon_card($count);
 
