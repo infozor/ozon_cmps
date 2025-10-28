@@ -62,7 +62,8 @@ while ( true )
 	
 	socket_write($spawn, $output, strlen($output)) or die("Could not write output\n");
 	// close sockets
+	socket_close($spawn);
 
 }
-socket_close($spawn);
+
 socket_close($socket);
