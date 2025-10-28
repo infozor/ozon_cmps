@@ -48,7 +48,8 @@ while ( true )
 	
 	
 	
-	$output = 'price:'.$price;
+	//$output = 'price:'.$price;
+	
 	
 	$campaign_id = $input;
 	//$campaign_id = '55312';

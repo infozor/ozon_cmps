@@ -7,40 +7,39 @@ use App\Controller\Main;
 use App\Controller\ionLogClass;
 
 date_default_timezone_set('Europe/Moscow');
-
 class Process
 {
+	function get_logs_path()
+	{
+		$path = realpath(__DIR__ . '/../../log/');
+		return $path;
+	}
+	function delete_files($directory)
+	{
+		if (is_dir($directory))
+		{
+
+			$files = glob($directory . "/*.json");
+			foreach ( $files as $file )
+			{
+				if (is_file($file))
+				{
+					unlink($file); // удаляем файл
+				}
+			}
+		}
+		else
+		{
+		}
+	}
 	function run($campaign_id)
 	{
 		$Main = new Main();
-		function get_logs_path()
-		{
-			$path = realpath(__DIR__ . '/../../log/');
-			return $path;
-		}
 
-		$LogClass = new ionLogClass(get_logs_path());
-		function delete_files($directory)
-		{
-			if (is_dir($directory))
-			{
-
-				$files = glob($directory . "/*.json");
-				foreach ( $files as $file )
-				{
-					if (is_file($file))
-					{
-						unlink($file); // удаляем файл
-					}
-				}
-			}
-			else
-			{
-			}
-		}
+		$LogClass = new ionLogClass($this->get_logs_path());
 
 		// $campaign_id = '55310';
-		//$campaign_id = '55312';
+		// $campaign_id = '55312';
 
 		// goto start5;
 		// goto step01;
@@ -52,7 +51,7 @@ class Process
 
 		$directory = realpath(__DIR__ . '/../../data/');
 
-		delete_files($directory);
+		$this->delete_files($directory);
 
 		// goto start6_1;
 
