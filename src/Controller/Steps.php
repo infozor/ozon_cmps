@@ -21,9 +21,13 @@ class Steps
 	{
 		$this->Db = new Db();
 		
-		$count = 200;
+		//$count = 200;
 		
-		$fetch = $this->Db->get_ozon_products_info_price_ozon_card($count);
+		$count = 3;
+		
+		//$fetch = $this->Db->get_ozon_products_info_price_ozon_card($count);
+		
+		$fetch = $this->Db->get_ozon_products_info_price_ozon_card_otbor($count);
 
 		$products = [];
 
@@ -157,7 +161,8 @@ class Steps
 	function StepListUrl()
 	{
 		$this->Db = new Db();
-		$fetch = $this->Db->get_ozon_products_info_price_ozon_card();
+		//$fetch = $this->Db->get_ozon_products_info_price_ozon_card();
+		$fetch = $this->Db->get_ozon_products_info_price_ozon_card_otbor(3);
 		
 		$products = [];
 		
@@ -191,7 +196,8 @@ class Steps
 	function StepListUrlCSV()
 	{
 		$this->Db = new Db();
-		$fetch = $this->Db->get_ozon_products_info_price_ozon_card();
+		//$fetch = $this->Db->get_ozon_products_info_price_ozon_card(1000);
+		$fetch = $this->Db->get_ozon_products_info_price_ozon_card_otbor(3);
 		
 		// Открываем файл для записи CSV
 		$file = fopen($this->file_data_url_csv, 'w');

@@ -392,6 +392,48 @@ class Db
 		return $rows;
 	}
 	
+	
+	function get_ozon_products_info_price_ozon_card_otbor($count)
+	{
+		
+		
+		
+		$sqlstr = sprintf("
+							SELECT
+							  id,
+							  id_product_list,
+							  product_id,
+							  offer_id,
+							  images,
+							  barcode,
+							  name,
+							  old_price,
+							  price,
+							  min_price,
+							  marketing_price,
+							  minimal_price,
+							  price_with_ozon_card,
+							  price_index_value,
+							  stock_present,
+							  fbo_sku,
+							  fbs_sku,
+							  created_at
+							FROM
+							  public.ozon_product_info
+							WHERE
+							  offer_id in (248772, 252450, 263384)
+							ORDER BY
+							  id
+                            LIMIT %s
+				
+			", $count);
+		
+		$stmt = $this->conn->prepare($sqlstr);
+		$stmt->execute();
+		$rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+		return $rows;
+	}
+	
 	function update_ozon_product_info_($params)
 	{
 		// @params
