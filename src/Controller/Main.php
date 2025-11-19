@@ -10,19 +10,34 @@ class Main
 	{
 		$a = 1;
 	}
+	function Step00minus2()
+	{
+		$Steps = new Steps();
+		// синий3 берём данные для products из БД
+		$step = $Steps->Step00minus2();
+		return $step;
+	}
+	
+	function Step00minus1($sheetData)
+	{
+		$Steps = new Steps();
+		// жёлтый2 заливка xlsx в БД
+		$step = $Steps->Step00minus1($sheetData);
+		return $step;
+	}
 	function Step00()
 	{
 		$Steps = new Steps();
 		// подготовка json файла с продуктами
-		$step1 = $Steps->Step00();
-		return $step1;
+		$step = $Steps->Step00();
+		return $step;
 	}
 	function Step01()
 	{
 		$Steps = new Steps();
 		// Список кампаний
-		$step1 = $Steps->Step01();
-		return $step1;
+		$step = $Steps->Step01();
+		return $step;
 	}
 	function Step1($campaign_id, $json_file_products)
 	{

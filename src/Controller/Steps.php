@@ -16,17 +16,18 @@ class Steps
 		$this->file_data_url = realpath(__DIR__ . '/../../data/') . '/' . 'products_url_' . $date . '.json';
 		$this->file_data_url_csv = realpath(__DIR__ . '/../../data/') . '/' . 'products_url_csv_' . $date . '.csv';
 	}
+
 	// подготовка json файла с продуктами
 	function Step00()
 	{
 		$this->Db = new Db();
-		
+
 		//$count = 200;
-		
+
 		$count = 3;
-		
+
 		//$fetch = $this->Db->get_ozon_products_info_price_ozon_card($count);
-		
+
 		$fetch = $this->Db->get_ozon_products_info_price_ozon_card_otbor($count);
 
 		$products = [];
@@ -41,7 +42,7 @@ class Steps
 					'name' => $name,
 					'cost' => 0,
 					'id' => $clean_barcode,
-					'yandex_model_id' =>  'https://www.ozon.ru/product/'.$clean_barcode
+					'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode
 			];
 		}
 
@@ -137,10 +138,9 @@ class Steps
 		$arrayProducts = json_decode($json, true);
 
 		$this->Db = new Db();
-		
-		
+
 		$k = 0;
-		
+
 		for($i = 0; $i < count($arrayProducts); $i++)
 		{
 			$params['product_id'] = $arrayProducts[$i]['id'];
@@ -153,63 +153,65 @@ class Steps
 			}
 		}
 
-		
-
 		return $k;
 	}
-	
 	function StepListUrl()
 	{
 		$this->Db = new Db();
 		//$fetch = $this->Db->get_ozon_products_info_price_ozon_card();
 		$fetch = $this->Db->get_ozon_products_info_price_ozon_card_otbor(3);
-		
+
 		$products = [];
-		
+
 		foreach ( $fetch as $item )
 		{
 			$name = $item['name'] ?? null;
 			$barcode = $item['barcode'] ?? '';
 			$clean_barcode = str_replace('OZN', '', $barcode);
-			
+
 			$products[] = [
 					'name' => $name,
 					'cost' => 0,
 					'id' => $clean_barcode,
-					'yandex_model_id' =>  'https://www.ozon.ru/product/'.$clean_barcode
+					'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode
 			];
 		}
-		
+
 		// $json = json_encode(array_values($products), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 		// $body = json_encode(['products' => $products], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 		$body = json_encode([
 				'products' => $products
 		]);
-		
+
 		$data = $body;
-		
+
 		file_put_contents($this->file_data_url, $data);
-		
+
 		return $this->file_data_url;
 	}
-	
 	function StepListUrlCSV()
 	{
 		$this->Db = new Db();
 		//$fetch = $this->Db->get_ozon_products_info_price_ozon_card(1000);
 		$fetch = $this->Db->get_ozon_products_info_price_ozon_card_otbor(3);
-		
+
 		// Открываем файл для записи CSV
 		$file = fopen($this->file_data_url_csv, 'w');
-		
+
 		// Записываем заголовки CSV
-		fputcsv($file, ['name', 'cost', 'id', 'url']);
-		
-		foreach ($fetch as $item) {
+		fputcsv($file, [
+				'name',
+				'cost',
+				'id',
+				'url'
+		]);
+
+		foreach ( $fetch as $item )
+		{
 			$name = $item['name'] ?? null;
 			$barcode = $item['barcode'] ?? '';
 			$clean_barcode = str_replace('OZN', '', $barcode);
-			
+
 			// Формируем строку для CSV
 			$row = [
 					'name' => $name,
@@ -217,15 +219,64 @@ class Steps
 					'id' => $clean_barcode,
 					'url' => 'https://www.ozon.ru/product/' . $clean_barcode
 			];
-			
+
 			// Записываем строку в CSV
 			fputcsv($file, $row);
 		}
-		
+
 		// Закрываем файл
 		fclose($file);
-		
+
 		return $this->file_data_url_csv;
 	}
+	function Step00minus1($sheetData)
+	{
+		$this->walk($sheetData);
+	}
+	function walk($sheetData)
+	{
+		$this->Db = new Db();
+		
+		for($i = 0; $i < count($sheetData); $i++)
+		{
+			if ($i > 1)
+			{
+				$data = $sheetData[$i];
+				
+				$params['artikul'] = $data['A'];
+				$params['naimenovanie'] = $data['B'];
+				$params['poiskovoe'] = $data['C'];
+
+				$params['bs_ozon'] = $data['D'];
+				$params['chs_ozon'] = $data['E'];
+				$params['url'] = $data['F'];
+
+				$this->Db->insert_ozon_parser_competitors_config($params);
+			}
+		}
+	}
 	
+	function Step00minus2()
+	{
+		$this->Db = new Db();
+		
+		/*
+		$params['id'] = 'id';
+		$params['artikul'] = 'artikul';
+		$params['naimenovanie'] = 'naimenovanie';
+		$params['poiskovoe'] = 'poiskovoe';
+		$params['bs_ozon'] = 'bs_ozon';
+		$params['chs_ozon'] = 'chs_ozon';
+		$params['url'] = 'url';
+		*/
+		
+		$params['artikul'] = '2685461578';
+		
+		//$rows = $Test->get_ozon_parser_competitors_config($params);
+		
+		$rows = $this->Db->get_ozon_parser_competitors_config($params);
+		
+		$a = 1;
+		
+	}
 }

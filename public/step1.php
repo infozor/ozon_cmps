@@ -7,7 +7,8 @@ require $path . '/' . 'autoload.php';
 use App\Controller\Main;
 
 //$campaign_id = 55750;
-$campaign_id = 55751;
+//$campaign_id = 55751;
+$campaign_id = 55827;
 
 $file_products = 'D:\site_next\ozon_cmps\data/products_.json';
 $json_file_products = file_get_contents($file_products);
