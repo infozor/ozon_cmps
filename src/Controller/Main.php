@@ -39,6 +39,7 @@ class Main
 		$step = $Steps->Step01();
 		return $step;
 	}
+	//Шаг1 обновление прайса
 	function Step1($campaign_id, $json_file_products)
 	{
 		$Steps = new Steps();
