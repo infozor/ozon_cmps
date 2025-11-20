@@ -10,11 +10,11 @@ class Main
 	{
 		$a = 1;
 	}
-	function Step00minus2()
+	function Step00minus2($sku)
 	{
 		$Steps = new Steps();
 		// синий3 берём данные для products из БД
-		$step = $Steps->Step00minus2();
+		$step = $Steps->Step00minus2($sku);
 		return $step;
 	}
 	

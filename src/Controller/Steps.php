@@ -256,7 +256,7 @@ class Steps
 		}
 	}
 	
-	function Step00minus2()
+	function Step00minus2($sku)
 	{
 		$this->Db = new Db();
 		
@@ -270,13 +270,14 @@ class Steps
 		$params['url'] = 'url';
 		*/
 		
-		$params['artikul'] = '2685461578';
+		//$params['artikul'] = '2685461578';
+		$params['artikul'] = $sku;
 		
 		//$rows = $Test->get_ozon_parser_competitors_config($params);
 		
 		$rows = $this->Db->get_ozon_parser_competitors_config($params);
 		
-		$a = 1;
+		return $rows;
 		
 	}
 }
