@@ -36,7 +36,9 @@ function delete_files($directory)
 }
 
 // $campaign_id = '55310';
-$campaign_id = '55312';
+//$campaign_id = '55312';
+
+$campaign_id = '55964';
 
 // goto start5;
 // goto step01;

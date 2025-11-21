@@ -32,6 +32,13 @@ class Main
 		$step = $Steps->Step00();
 		return $step;
 	}
+	function Step00pretty()
+	{
+		$Steps = new Steps();
+		// подготовка json файла с продуктами
+		$step = $Steps->Step00pretty();
+		return $step;
+	}
 	function Step01()
 	{
 		$Steps = new Steps();

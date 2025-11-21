@@ -18,7 +18,7 @@ class Steps
 	}
 
 	// подготовка json файла с продуктами
-	function Step00()
+	function Step00_()
 	{
 		$this->Db = new Db();
 
@@ -74,14 +74,16 @@ class Steps
 	}
 
 	
+
+	
 	// подготовка json файла с продуктами
-	function Step00m()
+	function Step00()
 	{
 		$this->Db = new Db();
 		
-		//$count = 200;
+		$count = 200;
 		
-		$count = 3;
+		//$count = 3;
 		
 		$fetch = $this->Db->get_ozon_products_info_price_ozon_card($count);
 		
@@ -91,7 +93,7 @@ class Steps
 		
 		foreach ( $fetch as $item )
 		{
-			$name = $item['name'] ?? null;
+			//$name = $item['name'] ?? null;
 			$barcode = $item['barcode'] ?? '';
 			$clean_barcode = str_replace('OZN', '', $barcode);
 			
@@ -100,6 +102,9 @@ class Steps
 			
 			if (count($fetch2) > 0)
 			{
+				$name = $fetch2[0]['poiskovoe'];
+				
+				$items = [];
 				
 				$str_bs_ozon = $fetch2[0]['bs_ozon'];
 				$str_chs_ozon = $fetch2[0]['chs_ozon'];
@@ -129,8 +134,8 @@ class Steps
 						'cost' => 0,
 						'id' => $clean_barcode,
 						'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode,
-						'black_list' => $items['chs'], //белый список
-						'white_list' => $items['bs']   //чёрный список
+						'black_list' => $items['chs'], //чёрный список
+						'white_list' => $items['bs']   //белый список
 						
 						
 				];
@@ -160,6 +165,112 @@ class Steps
 		$data = $body;
 		
 		file_put_contents($this->file_data, $data, FILE_APPEND);
+		
+		return $this->file_data;
+	}
+	
+	// подготовка json файла с продуктами
+	function Step00pretty()
+	{
+		$this->Db = new Db();
+		
+		$count = 200;
+		
+		//$count = 3;
+		
+		$fetch = $this->Db->get_ozon_products_info_price_ozon_card($count);
+		
+		//$fetch = $this->Db->get_ozon_products_info_price_ozon_card_otbor($count);
+		
+		$products = [];
+		
+		foreach ( $fetch as $item )
+		{
+			//$name = $item['name'] ?? null;
+			$barcode = $item['barcode'] ?? '';
+			$clean_barcode = str_replace('OZN', '', $barcode);
+			
+			$params['artikul'] = $clean_barcode; //sku
+			$fetch2 = $this->Db->get_ozon_parser_competitors_config($params);
+			
+			if (count($fetch2) > 0)
+			{
+				$name = $fetch2[0]['poiskovoe'];
+				
+				$items = [];
+				
+				$str_bs_ozon = $fetch2[0]['bs_ozon'];
+				$str_chs_ozon = $fetch2[0]['chs_ozon'];
+				
+				// Разбиваем на строки
+				$lines = explode("\n", $str_bs_ozon);
+				
+				
+				for($i = 0; $i< count($lines); $i++)
+				{
+					$items['bs'][] = $lines[$i];
+				}
+				
+				// Разбиваем на строки
+				$lines = explode("\n", $str_chs_ozon);
+				
+				
+				for($i = 0; $i< count($lines); $i++)
+				{
+					$items['chs'][] = $lines[$i];
+				}
+				
+				
+				
+				$products[] = [
+						'name' => $name,
+						'cost' => 0,
+						'id' => $clean_barcode,
+						'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode,
+						'black_list' => $items['chs'], //чёрный список
+						'white_list' => $items['bs']   //белый список
+						
+						
+				];
+			}
+		}
+		
+		// $json = json_encode(array_values($products), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+		// $body = json_encode(['products' => $products], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
+		
+		
+		//$options = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
+		
+		$options = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT;
+		
+		$body_pretty = json_encode([
+				'products' => $products
+		], $options);
+		
+		
+		
+		/*
+		 * $body = '{
+		 * "products": [
+		 * {
+		 * "name": "product-123",
+		 * "cost": 0,
+		 * "id": "123"
+		 * }
+		 * ]
+		 * }';
+		 */
+		
+		// $data = $body;
+		
+		$data = $body_pretty;
+		
+		
+		$date = '';
+		$file_data_pretty = realpath(__DIR__ . '/../../data/') . '/' . 'products_123' . $date . '.json';
+		
+		//file_put_contents($this->file_data., $data, FILE_APPEND);
+		file_put_contents($file_data_pretty, $data, FILE_APPEND);
 		
 		return $this->file_data;
 	}
