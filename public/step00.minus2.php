@@ -5,7 +5,9 @@ require $path . '/' . 'autoload.php';
 use App\Controller\Main;
 
 
-$sku = '2685461578';
+//$sku = '2685461578';
+
+$sku = '1715834940';
 		
 $Main = new Main();
 $result = $Main->Step00minus2($sku);

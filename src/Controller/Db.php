@@ -577,7 +577,7 @@ class Db
 			  artikul = '%s'
 			ORDER BY
 			  id
-            LIMIT 1
+            -- LIMIT 1
 				
 			", $artikul);
 

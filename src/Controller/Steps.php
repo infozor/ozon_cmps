@@ -73,81 +73,110 @@ class Steps
 		return $this->file_data;
 	}
 
-	
-
-	
 	// подготовка json файла с продуктами
 	function Step00()
 	{
 		$this->Db = new Db();
-		
+
 		$count = 200;
-		
+
 		//$count = 3;
-		
+
 		$fetch = $this->Db->get_ozon_products_info_price_ozon_card($count);
-		
+
 		//$fetch = $this->Db->get_ozon_products_info_price_ozon_card_otbor($count);
-		
+
 		$products = [];
-		
+
 		foreach ( $fetch as $item )
 		{
 			//$name = $item['name'] ?? null;
 			$barcode = $item['barcode'] ?? '';
 			$clean_barcode = str_replace('OZN', '', $barcode);
-			
+
 			$params['artikul'] = $clean_barcode; //sku
 			$fetch2 = $this->Db->get_ozon_parser_competitors_config($params);
-			
+
 			if (count($fetch2) > 0)
 			{
-				$name = $fetch2[0]['poiskovoe'];
-				
-				$items = [];
-				
-				$str_bs_ozon = $fetch2[0]['bs_ozon'];
-				$str_chs_ozon = $fetch2[0]['chs_ozon'];
-				
-				// Разбиваем на строки
-				$lines = explode("\n", $str_bs_ozon);
-				
-				
-				for($i = 0; $i< count($lines); $i++)
+
+				for($i = 0; $i < count($fetch2); $i++)
 				{
-					$items['bs'][] = $lines[$i];
+					$name = $fetch2[$i]['poiskovoe'];
+
+					$items = [];
+
+					$str_bs_ozon = $fetch2[$i]['bs_ozon'];
+					$str_chs_ozon = $fetch2[$i]['chs_ozon'];
+
+					// Разбиваем на строки
+					$lines = explode("\n", $str_bs_ozon);
+
+					for($j = 0; $j < count($lines); $j++)
+					{
+						$items['bs'][] = $lines[$j];
+					}
+
+					// Разбиваем на строки
+					$lines = explode("\n", $str_chs_ozon);
+
+					for($j = 0; $j < count($lines); $j++)
+					{
+						$items['chs'][] = $lines[$j];
+					}
+
+					$url = $fetch2[$i]['url'];
+
+					$naimenovanie = $fetch2[$i]['naimenovanie'];
+
+					if (strpos($url, 'https') === 0)
+					{
+						//'Строка начинается с https';
+
+						$products[] = [
+								'name' => $name,
+								'cost' => 0,
+								'id' => $clean_barcode,
+								'yandex_model_id' => $url,
+								'custom' => [ //optional field
+										'naimenovanie' => $naimenovanie,
+										'product_id' => $clean_barcode,
+										'inner_num' => $i,
+										'url' => 'yes',
+										'base_id' => $item['id'] //id в таблице ozon_product_info
+								]
+						];
+					}
+					else
+					{
+						//'Строка НЕ начинается с https';
+
+						$products[] = [
+								'name' => $name,
+								'cost' => 0,
+								'id' => $clean_barcode,
+								//'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode,
+								'black_list' => $items['chs'], //чёрный список
+								'white_list' => $items['bs'], //белый список
+								'custom' => [ //optional field
+										'naimenovanie' => $naimenovanie,
+										'product_id' => $clean_barcode,
+										'inner_num' => $i,
+										'url' => 'no',
+										'base_id' => $item['id'] //id в таблице ozon_product_info
+								]
+						];
+					}
 				}
-				
-				// Разбиваем на строки
-				$lines = explode("\n", $str_chs_ozon);
-				
-				
-				for($i = 0; $i< count($lines); $i++)
-				{
-					$items['chs'][] = $lines[$i];
-				}
-				
-				
-				
-				$products[] = [
-						'name' => $name,
-						'cost' => 0,
-						'id' => $clean_barcode,
-						//'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode,
-						'black_list' => $items['chs'], //чёрный список
-						'white_list' => $items['bs']   //белый список
-						
-						
-				];
 			}
 		}
-		
+
 		// $json = json_encode(array_values($products), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 		// $body = json_encode(['products' => $products], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 		$body = json_encode([
 				'products' => $products
 		]);
-		
+
 		/*
 		 * $body = '{
 		 * "products": [
@@ -159,96 +188,125 @@ class Steps
 		 * ]
 		 * }';
 		 */
-		
+
 		// $data = $body;
-		
+
 		$data = $body;
-		
+
 		file_put_contents($this->file_data, $data, FILE_APPEND);
-		
+
 		return $this->file_data;
 	}
-	
+
 	// подготовка json файла с продуктами
 	function Step00pretty()
 	{
 		$this->Db = new Db();
-		
+
 		$count = 200;
-		
+
 		//$count = 3;
-		
+
 		$fetch = $this->Db->get_ozon_products_info_price_ozon_card($count);
-		
+
 		//$fetch = $this->Db->get_ozon_products_info_price_ozon_card_otbor($count);
-		
+
 		$products = [];
-		
+
 		foreach ( $fetch as $item )
 		{
 			//$name = $item['name'] ?? null;
 			$barcode = $item['barcode'] ?? '';
 			$clean_barcode = str_replace('OZN', '', $barcode);
-			
+
 			$params['artikul'] = $clean_barcode; //sku
 			$fetch2 = $this->Db->get_ozon_parser_competitors_config($params);
-			
+
 			if (count($fetch2) > 0)
 			{
-				$name = $fetch2[0]['poiskovoe'];
-				
-				$items = [];
-				
-				$str_bs_ozon = $fetch2[0]['bs_ozon'];
-				$str_chs_ozon = $fetch2[0]['chs_ozon'];
-				
-				// Разбиваем на строки
-				$lines = explode("\n", $str_bs_ozon);
-				
-				
-				for($i = 0; $i< count($lines); $i++)
+
+				for($i = 0; $i < count($fetch2); $i++)
 				{
-					$items['bs'][] = $lines[$i];
+					$name = $fetch2[$i]['poiskovoe'];
+
+					$items = [];
+
+					$str_bs_ozon = $fetch2[$i]['bs_ozon'];
+					$str_chs_ozon = $fetch2[$i]['chs_ozon'];
+
+					// Разбиваем на строки
+					$lines = explode("\n", $str_bs_ozon);
+
+					for($j = 0; $j < count($lines); $j++)
+					{
+						$items['bs'][] = $lines[$j];
+					}
+
+					// Разбиваем на строки
+					$lines = explode("\n", $str_chs_ozon);
+
+					for($j = 0; $j < count($lines); $j++)
+					{
+						$items['chs'][] = $lines[$j];
+					}
+
+					$url = $fetch2[$i]['url'];
+
+					$naimenovanie = $fetch2[$i]['naimenovanie'];
+
+					if (strpos($url, 'https') === 0)
+					{
+						//'Строка начинается с https';
+
+						$products[] = [
+								'name' => $name,
+								'cost' => 0,
+								'id' => $clean_barcode,
+								'yandex_model_id' => $url,
+								'custom' => [ //optional field
+										'naimenovanie' => $naimenovanie,
+										'product_id' => $clean_barcode,
+										'inner_num' => $i,
+										'url' => 'yes',
+										'base_id' => $item['id'] //id в таблице ozon_product_info
+								]
+						];
+					}
+					else
+					{
+						//'Строка НЕ начинается с https';
+
+						$products[] = [
+								'name' => $name,
+								'cost' => 0,
+								'id' => $clean_barcode,
+								//'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode,
+								'black_list' => $items['chs'], //чёрный список
+								'white_list' => $items['bs'], //белый список
+								'custom' => [ //optional field
+										'naimenovanie' => $naimenovanie,
+										'product_id' => $clean_barcode,
+										'inner_num' => $i,
+										'url' => 'no',
+										'base_id' => $item['id'] //id в таблице ozon_product_info
+								]
+						];
+					}
 				}
-				
-				// Разбиваем на строки
-				$lines = explode("\n", $str_chs_ozon);
-				
-				
-				for($i = 0; $i< count($lines); $i++)
-				{
-					$items['chs'][] = $lines[$i];
-				}
-				
-				
-				
-				$products[] = [
-						'name' => $name,
-						'cost' => 0,
-						'id' => $clean_barcode,
-						'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode,
-						'black_list' => $items['chs'], //чёрный список
-						'white_list' => $items['bs']   //белый список
-						
-						
-				];
 			}
 		}
-		
+
 		// $json = json_encode(array_values($products), JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
 		// $body = json_encode(['products' => $products], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
-		
-		
+
 		//$options = JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE;
-		
+
 		$options = JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT;
-		
+
 		$body_pretty = json_encode([
 				'products' => $products
 		], $options);
-		
-		
-		
+
 		/*
 		 * $body = '{
 		 * "products": [
@@ -260,21 +318,20 @@ class Steps
 		 * ]
 		 * }';
 		 */
-		
+
 		// $data = $body;
-		
+
 		$data = $body_pretty;
-		
-		
+
 		$date = '';
 		$file_data_pretty = realpath(__DIR__ . '/../../data/') . '/' . 'products_123' . $date . '.json';
-		
+
 		//file_put_contents($this->file_data., $data, FILE_APPEND);
 		file_put_contents($file_data_pretty, $data, FILE_APPEND);
-		
+
 		return $this->file_data;
 	}
-	
+
 	// Список кампаний
 	function Step01()
 	{
@@ -438,13 +495,13 @@ class Steps
 	function walk($sheetData)
 	{
 		$this->Db = new Db();
-		
+
 		for($i = 0; $i < count($sheetData); $i++)
 		{
 			if ($i > 1)
 			{
 				$data = $sheetData[$i];
-				
+
 				$params['artikul'] = $data['A'];
 				$params['naimenovanie'] = $data['B'];
 				$params['poiskovoe'] = $data['C'];
@@ -457,29 +514,27 @@ class Steps
 			}
 		}
 	}
-	
 	function Step00minus2($sku)
 	{
 		$this->Db = new Db();
-		
+
 		/*
-		$params['id'] = 'id';
-		$params['artikul'] = 'artikul';
-		$params['naimenovanie'] = 'naimenovanie';
-		$params['poiskovoe'] = 'poiskovoe';
-		$params['bs_ozon'] = 'bs_ozon';
-		$params['chs_ozon'] = 'chs_ozon';
-		$params['url'] = 'url';
-		*/
-		
+		 $params['id'] = 'id';
+		 $params['artikul'] = 'artikul';
+		 $params['naimenovanie'] = 'naimenovanie';
+		 $params['poiskovoe'] = 'poiskovoe';
+		 $params['bs_ozon'] = 'bs_ozon';
+		 $params['chs_ozon'] = 'chs_ozon';
+		 $params['url'] = 'url';
+		 */
+
 		//$params['artikul'] = '2685461578';
 		$params['artikul'] = $sku;
-		
+
 		//$rows = $Test->get_ozon_parser_competitors_config($params);
-		
+
 		$rows = $this->Db->get_ozon_parser_competitors_config($params);
-		
+
 		return $rows;
-		
 	}
 }
