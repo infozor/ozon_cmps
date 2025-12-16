@@ -1,0 +1,412 @@
+{
+    "products": [
+        {
+            "name": "НАКОНЕЧНИК рулевой левый Geely Atlas Pro 4036028700",
+            "cost": 0,
+            "id": "1712066954",
+            "yandex_model_id": "https://www.ozon.ru/product/1712066954",
+            "black_list": [
+                "правый",
+                "комплект"
+            ],
+            "white_list": [
+                "4036028700"
+            ]
+        },
+        {
+            "name": "НАКОНЕЧНИК рулевой правый 4036028600 Geely Atlas Pro",
+            "cost": 0,
+            "id": "1712063965",
+            "yandex_model_id": "https://www.ozon.ru/product/1712063965",
+            "black_list": [
+                "левый",
+                "комплект"
+            ],
+            "white_list": [
+                "4036028600"
+            ]
+        },
+        {
+            "name": "ОПОРА промежуточная карданного вала Great Wall Hover 2201120XKZ36A",
+            "cost": 0,
+            "id": "1712068692",
+            "yandex_model_id": "https://www.ozon.ru/product/1712068692",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                ""
+            ]
+        },
+        {
+            "name": "Подшипник ступицы в сборе задний Chery TIGGO 204000480AA",
+            "cost": 0,
+            "id": "1712094588",
+            "yandex_model_id": "https://www.ozon.ru/product/1712094588",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "204000480AA"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР воздушный Lixiang X01-29150063",
+            "cost": 0,
+            "id": "1715804899",
+            "yandex_model_id": "https://www.ozon.ru/product/1715804899",
+            "black_list": [
+                "90000044",
+                "90000206"
+            ],
+            "white_list": [
+                "X01&29150063"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР салонный Lixiang L8/L9 H141553142",
+            "cost": 0,
+            "id": "1715834940",
+            "yandex_model_id": "https://www.ozon.ru/product/1715834940",
+            "black_list": [
+                "комплект",
+                "FC1135"
+            ],
+            "white_list": [
+                "H141553142"
+            ]
+        },
+        {
+            "name": "ДАТЧИК давления шины Haval 3641101XKN01A TPMS",
+            "cost": 0,
+            "id": "1772795064",
+            "yandex_model_id": "https://www.ozon.ru/product/1772795064",
+            "black_list": [
+                "2шт",
+                "2 шт",
+                "4шт",
+                "4 шт",
+                "колпач"
+            ],
+            "white_list": [
+                "3641101XKN01A"
+            ]
+        },
+        {
+            "name": "ДАТЧИК давления шины TANK 500 3641100XKV3AA TPMS",
+            "cost": 0,
+            "id": "1772802860",
+            "yandex_model_id": "https://www.ozon.ru/product/1772802860",
+            "black_list": [
+                "2 шт",
+                "2шт",
+                "4шт",
+                "4 шт",
+                "набор",
+                "запчаст",
+                ""
+            ],
+            "white_list": [
+                "3641100XKV3AA"
+            ]
+        },
+        {
+            "name": "СВЕЧИ зажигания NE14T0030200 Changan 4 шт",
+            "cost": 0,
+            "id": "1772818572",
+            "yandex_model_id": "https://www.ozon.ru/product/1772818572",
+            "black_list": [
+                "фильтр"
+            ],
+            "white_list": [
+                "NE14T0030200&4&шт"
+            ]
+        },
+        {
+            "name": "ДАТЧИК давления шин 7091004700 TPMS на Geely",
+            "cost": 0,
+            "id": "1802252438",
+            "yandex_model_id": "https://www.ozon.ru/product/1802252438",
+            "black_list": [
+                "вентил",
+                "колпач"
+            ],
+            "white_list": [
+                "7091004700"
+            ]
+        },
+        {
+            "name": "салфетка для авто 43*32 ultra замшевая",
+            "cost": 0,
+            "id": "1895308638",
+            "yandex_model_id": "https://www.ozon.ru/product/1895308638",
+            "black_list": [
+                "2шт",
+                "2 шт"
+            ],
+            "white_list": [
+                "43&32"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР воздушный 2032079200 для Geely Emgrand",
+            "cost": 0,
+            "id": "2031618922",
+            "yandex_model_id": "https://www.ozon.ru/product/2031618922",
+            "black_list": [
+                "комплект",
+                "набор"
+            ],
+            "white_list": [
+                "2032079200"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР салона  8890649934 на ZEEKR 001 и 009",
+            "cost": 0,
+            "id": "2031637196",
+            "yandex_model_id": "https://www.ozon.ru/product/2031637196",
+            "black_list": [
+                "autoparts",
+                "East"
+            ],
+            "white_list": [
+                "8890649934"
+            ]
+        },
+        {
+            "name": "БАТАРЕЙКА VARTA CR2032 3V LITHIUM - 1 шт",
+            "cost": 0,
+            "id": "2031691099",
+            "yandex_model_id": "https://www.ozon.ru/product/2031691099",
+            "black_list": [
+                "2шт",
+                "2 шт",
+                "4шт",
+                "4 шт",
+                "5шт",
+                "5 шт",
+                "10шт",
+                "10 шт"
+            ],
+            "white_list": [
+                "CR2032"
+            ]
+        },
+        {
+            "name": "ВОДОСГОН для стекол автомобиля телескопический",
+            "cost": 0,
+            "id": "2031696904",
+            "yandex_model_id": "https://www.ozon.ru/product/2031696904",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "телескоп"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР воздушный Geely 2032045400",
+            "cost": 0,
+            "id": "2679696203",
+            "yandex_model_id": "https://www.ozon.ru/product/2679696203",
+            "black_list": [
+                "комплект"
+            ],
+            "white_list": [
+                "2032045400"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР воздушный Voyah Free 110901000",
+            "cost": 0,
+            "id": "2685416800",
+            "yandex_model_id": "https://www.ozon.ru/product/2685416800",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "110901000"
+            ]
+        },
+        {
+            "name": "СВЕЧИ зажигания 3707010-А03 4 шт",
+            "cost": 0,
+            "id": "2685298437",
+            "yandex_model_id": "https://www.ozon.ru/product/2685298437",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                " 3707010&А03&4&шт"
+            ]
+        },
+        {
+            "name": "ДАТЧИК давления шин TIGGO 802000121AA",
+            "cost": 0,
+            "id": "2679699724",
+            "yandex_model_id": "https://www.ozon.ru/product/2679699724",
+            "black_list": [
+                "шт",
+                "уп"
+            ],
+            "white_list": [
+                "802000121AA&TIGGO",
+                "802000121AA&ТИГО"
+            ]
+        },
+        {
+            "name": "НАКОНЕЧНИК рулевой HAVAL JOLION левый",
+            "cost": 0,
+            "id": "2679705296",
+            "yandex_model_id": "https://www.ozon.ru/product/2679705296",
+            "black_list": [
+                "правый",
+                "гайк"
+            ],
+            "white_list": [
+                "3401117XGW02A"
+            ]
+        },
+        {
+            "name": "НАКОНЕЧНИК рулевой HAVAL JOLION правый",
+            "cost": 0,
+            "id": "2679702976",
+            "yandex_model_id": "https://www.ozon.ru/product/2679702976",
+            "black_list": [
+                "левый",
+                "гайк"
+            ],
+            "white_list": [
+                "3401118XGW02A"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР масляный DARGO 2.0 1017110XEN01",
+            "cost": 0,
+            "id": "2685461578",
+            "yandex_model_id": "https://www.ozon.ru/product/2685461578",
+            "black_list": [
+                "маслян"
+            ],
+            "white_list": [
+                "dargo&2"
+            ]
+        },
+        {
+            "name": "ДАТЧИК температуры охл.жидкости JAC J7",
+            "cost": 0,
+            "id": "2726016280",
+            "yandex_model_id": "https://www.ozon.ru/product/2726016280",
+            "black_list": [
+                "комплект",
+                "набор",
+                "шт",
+                "уп"
+            ],
+            "white_list": [
+                "jac&j7"
+            ]
+        },
+        {
+            "name": "ОПОРА шаровая переднего нижнего рычага HAVAL POER / TANK 300/400/500",
+            "cost": 0,
+            "id": "2726184470",
+            "yandex_model_id": "https://www.ozon.ru/product/2726184470",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "haval&poer",
+                "haval&tank"
+            ]
+        },
+        {
+            "name": "ОПОРА шаровая TIGGO 4 / 7 / 7 PRO / 7 PRO MAX/ OMODA C5 / ARIZZO 8",
+            "cost": 0,
+            "id": "2726183930",
+            "yandex_model_id": "https://www.ozon.ru/product/2726183930",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "tiggo"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР топливный Sollers Argo 1105013W5030",
+            "cost": 0,
+            "id": "2776747389",
+            "yandex_model_id": "https://www.ozon.ru/product/2776747389",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "1105013W5030"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР топливный Sollers Argo 1105022W5030",
+            "cost": 0,
+            "id": "2726241863",
+            "yandex_model_id": "https://www.ozon.ru/product/2726241863",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "1105022W5030"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР топливный грубой очистки Sollers Atlant 2.7D 149л.с ( Евро 5) / JAC Sunray",
+            "cost": 0,
+            "id": "2776750695",
+            "yandex_model_id": "https://www.ozon.ru/product/2776750695",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "atlant&149&груб",
+                "1105021R0070"
+            ]
+        },
+        {
+            "name": "ФИЛЬТР топливный Sollers Atlant 2.7D 149л.с ( Евро 5) тонкой очистки",
+            "cost": 0,
+            "id": "2726242352",
+            "yandex_model_id": "https://www.ozon.ru/product/2726242352",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "atlant&149&тонк",
+                "1105011R0070"
+            ]
+        },
+        {
+            "name": "ПОДШИПНИК передней ступицы TIGGO  204000116AA",
+            "cost": 0,
+            "id": "2730766805",
+            "yandex_model_id": "https://www.ozon.ru/product/2730766805",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "204000116AA"
+            ]
+        },
+        {
+            "name": "ТЕРМОСТАТ Sollers Atlant (23-) / JAC Sunray (23-) 2.7D",
+            "cost": 0,
+            "id": "2731243038",
+            "yandex_model_id": "https://www.ozon.ru/product/2731243038",
+            "black_list": [
+                ""
+            ],
+            "white_list": [
+                "23&2&7&atlant&термостат",
+                "1041050FE010&термостат"
+            ]
+        }
+    ]
+}

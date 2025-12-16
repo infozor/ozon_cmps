@@ -25,7 +25,9 @@ class Marketparser
 		$db_servername = "192.168.9.196";
 		$db_username = "postgreadmin";
 		$db_password = "postgreadmin";
-		$db_name = "backoffice";
+		//$db_name = "backoffice";
+		
+		$db_name = "bollard_ozon";
 		$dbPort = '5432';
 
 		$conn = new \PDO("pgsql:host=$db_servername;port=$dbPort;dbname=$db_name", $db_username, $db_password);

@@ -40,6 +40,10 @@ function delete_files($directory)
 
 $campaign_id = '55964';
 
+//goto start2;
+
+
+goto start4;
 // goto start5;
 // goto step01;
 
@@ -92,7 +96,7 @@ $LogClass->logMethod("Шаг1 Обновить (перезалить) прайс
 
 $file = $Main->Step1($campaign_id, $json_file_products);
 
-// start2:
+start2:
 // -----------------------------------------------------------------------------
 // Шаг2 Получение информации о прайсе кампании
 // GetPriceStatus
@@ -187,7 +191,7 @@ else
 	$flag_step3 = false;
 }
 
-// start4:
+start4:
 // -----------------------------------------------------------------------------
 // Шаг4 Получение информации об отчёте
 // GetReportStatus
@@ -196,6 +200,11 @@ else
 $LogClass->logMethod("Шаг4 Получение информации об отчёте");
 
 // $CreateReportId = '3062906';
+//$CreateReportId = '3305845';
+
+$CreateReportId = '3320558';
+
+
 
 $report_id = $CreateReportId;
 
@@ -268,7 +277,7 @@ file_put_contents($fileGetReportResult, $jsonGetReportResult, FILE_APPEND);
 start5_1:
 
 //закомментировать
-//$jsonGetReportResult = file_get_contents('D:\site_next\ozonparsemark\data\report_results_.json');
+$jsonGetReportResult = file_get_contents('D:\site_next\ozonparsemark\data\report_results_.json');
 
 
 

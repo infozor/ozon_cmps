@@ -13,7 +13,7 @@ class Main
 	function Step00minus2($sku)
 	{
 		$Steps = new Steps();
-		// синий3 берём данные для products из БД
+		// синий3 берём данные для products из БД - см листок с нарисованной схемой от 19.11.25
 		$step = $Steps->Step00minus2($sku);
 		return $step;
 	}

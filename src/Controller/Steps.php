@@ -133,7 +133,7 @@ class Steps
 						'name' => $name,
 						'cost' => 0,
 						'id' => $clean_barcode,
-						'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode,
+						//'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode,
 						'black_list' => $items['chs'], //чёрный список
 						'white_list' => $items['bs']   //белый список
 						
