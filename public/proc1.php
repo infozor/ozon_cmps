@@ -38,7 +38,9 @@ function delete_files($directory)
 // $campaign_id = '55310';
 //$campaign_id = '55312';
 
-$campaign_id = '55964';
+//$campaign_id = '55964';
+
+$campaign_id = '56373';
 
 //goto start2;
 
@@ -103,7 +105,7 @@ start2:
 // -----------------------------------------------------------------------------
 $LogClass->logMethod("Шаг2 Получение информации о прайсе кампании");
 
-$count_iter = 10;
+$count_iter = 20;
 
 for($i = 0; $i < $count_iter; $i++)
 {
@@ -202,7 +204,10 @@ $LogClass->logMethod("Шаг4 Получение информации об от�
 // $CreateReportId = '3062906';
 //$CreateReportId = '3305845';
 
-$CreateReportId = '3320558';
+//$CreateReportId = '3320558';
+
+$CreateReportId = '3456328';
+
 
 
 
