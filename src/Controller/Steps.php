@@ -103,12 +103,14 @@ class Steps
 			$clean_barcode = str_replace('OZN', '', $barcode);
 			
 			
+			/*
 			if ( $clean_barcode == '2031637196')
 			{
 				$a = 1;
 			}
+			*/
 			
-			goto p1;
+			//goto p1;
 			
 			$params['artikul'] = $clean_barcode; //sku
 			$fetch2 = $this->Db->get_ozon_parser_competitors_config($params);
@@ -188,7 +190,7 @@ class Steps
 					}
 				}
 			}
-			p1:
+			//p1:
 		}
 		
 		return $products;

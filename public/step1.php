@@ -11,7 +11,8 @@ use App\Controller\Main;
 //$campaign_id = 55827;
 //$campaign_id = 55964;
 
-$campaign_id = 56373; //@todo taskp3875 16.12.2025 17:50
+//$campaign_id = 56373; //@todo taskp3875 16.12.2025 17:50
+$campaign_id = 56401; //@todo taskp3875 18.12.2025 10:28
 
 
 $file_products = 'D:\site_next\ozon_cmps\data/products_.json';

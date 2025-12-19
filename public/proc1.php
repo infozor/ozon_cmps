@@ -40,7 +40,8 @@ function delete_files($directory)
 
 //$campaign_id = '55964';
 
-$campaign_id = '56373';
+//$campaign_id = '56373';
+$campaign_id = '56401';
 
 //goto start2;
 
@@ -206,7 +207,9 @@ $LogClass->logMethod("Шаг4 Получение информации об от�
 
 //$CreateReportId = '3320558';
 
-$CreateReportId = '3456328';
+//$CreateReportId = '3456328';
+
+$CreateReportId = '3461253';
 
 
 
