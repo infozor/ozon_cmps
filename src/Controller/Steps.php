@@ -389,7 +389,8 @@ class Steps
 	}
 	function Step00minus1($sheetData)
 	{
-		$this->walk($sheetData);
+		//$this->walk($sheetData);
+		$this->walkm($sheetData);
 	}
 	function walk($sheetData)
 	{
@@ -413,6 +414,32 @@ class Steps
 			}
 		}
 	}
+	
+	function walkm($sheetData)
+	{
+		$this->Db = new Db();
+		
+		for($i = 0; $i < count($sheetData); $i++)
+		{
+			if ($i > 1)
+			{
+				$data = $sheetData[$i];
+				
+				$params['artikul'] = $data['A'];
+				$params['naimenovanie'] = $data['B'];
+				$params['poiskovoe'] = $data['C'];
+				$params['part_number'] = $data['D'];
+				
+				
+				$params['bs_ozon'] = $data['E'];
+				$params['chs_ozon'] = $data['F'];
+				$params['url'] = $data['G'];
+				
+				$this->Db->insert_ozon_parser_competitors_config($params);
+			}
+		}
+	}
+	
 	function Step00minus2($sku)
 	{
 		$this->Db = new Db();

@@ -497,6 +497,7 @@ class Db
 	 *    artikul VARCHAR(100) NOT NULL,
 	 *    naimenovanie TEXT,
 	 *    poiskovoe TEXT,
+	 *    part_number VARCHAR(100) NOT NULL,
 	 *    bs_ozon jsonb,
 	 *    chs_ozon jsonb,
 	 *    url VARCHAR(500)
@@ -508,6 +509,7 @@ class Db
 		$artikul = $params['artikul'];
 		$naimenovanie = $params['naimenovanie'];
 		$poiskovoe = $params['poiskovoe'];
+		$part_number = $params['part_number'];
 		$bs_ozon = $params['bs_ozon'];
 		$chs_ozon = $params['chs_ozon'];
 		$url = $params['url'];
@@ -519,6 +521,7 @@ class Db
           artikul,
               naimenovanie,
               poiskovoe,
+              part_number,
               bs_ozon,
               chs_ozon,
               url
@@ -527,11 +530,12 @@ class Db
           '%s', -- artikul
               '%s', -- naimenovanie
               '%s', -- poiskovoe
+              '%s', -- part_number
               '%s', -- bs_ozon
               '%s', -- chs_ozon
               '%s' -- url
         );
-        ", $artikul, $naimenovanie, $poiskovoe, $bs_ozon, $chs_ozon, $url);
+        ", $artikul, $naimenovanie, $poiskovoe, $part_number, $bs_ozon, $chs_ozon, $url);
 
 		$stmt = $this->conn->prepare($sqlstr);
 		$stmt->execute();
@@ -567,6 +571,7 @@ class Db
 			  artikul,
 			  naimenovanie,
 			  poiskovoe,
+              part_number,
 			  bs_ozon,
 			  chs_ozon,
 			  url
