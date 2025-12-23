@@ -10,6 +10,13 @@ class Main
 	{
 		$a = 1;
 	}
+	function Step00minus3($products_uploads_id, $sheetData)
+	{
+		$Steps2 = new Steps2();
+		// зелёный7 заливка xlsx в БД
+		$step = $Steps2->Step00minus3($products_uploads_id, $sheetData);
+		return $step;
+	}
 	function Step00minus2($sku)
 	{
 		$Steps = new Steps();
@@ -17,7 +24,6 @@ class Main
 		$step = $Steps->Step00minus2($sku);
 		return $step;
 	}
-	
 	function Step00minus1($sheetData)
 	{
 		$Steps = new Steps();
@@ -85,7 +91,7 @@ class Main
 		$step5 = $Steps->Step5($campaign_id, $report_id);
 		return $step5;
 	}
-	
+
 	// Шаг6 Получение списка отчётов кампании
 	function Step6($campaign_id)
 	{
@@ -93,7 +99,7 @@ class Main
 		$step6 = $Steps->Step6($campaign_id);
 		return $step6;
 	}
-	
+
 	//Шаг7 Обновление таблицы с товарами - установка найденных цен
 	function Step7($json)
 	{
@@ -101,7 +107,6 @@ class Main
 		$step6 = $Steps->Step7($json);
 		return $step6;
 	}
-	
 	function StepListUrl()
 	{
 		$Steps = new Steps();
@@ -109,7 +114,6 @@ class Main
 		$step1 = $Steps->StepListUrl();
 		return $step1;
 	}
-	
 	function StepListUrlCSV()
 	{
 		$Steps = new Steps();

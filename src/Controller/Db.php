@@ -591,4 +591,45 @@ class Db
 		$rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 		return $rows;
 	}
+	
+	/**
+	 * @author Ionov AV
+	 * @дата:    23.12.2025
+	 * @время: 10:19 
+	 * Описание функции
+	 * Список продуктов , взятый из avz помещаем в avz_products
+	 * sku здесь - это внутренний номер продукта в avz 
+	 */
+	function insert_avz_products($params)
+	{
+		// @params
+		$products_uploads_id = $params['products_uploads_id'];
+		$sku = $params['sku'];
+		$name = $params['name'];
+		$part_number = $params['part_number'];
+		//$created_at = $params['created_at'];
+		
+		$sqlstr = sprintf("
+        INSERT INTO
+          public.avz_products
+        (
+          products_uploads_id,
+              sku,
+              name,
+              part_number,
+              created_at
+        )
+        VALUES (
+          '%s', -- products_uploads_id
+              '%s', -- sku
+              '%s', -- name
+              '%s', -- part_number
+              NOW() -- created_at
+        );
+        ", $products_uploads_id, $sku, $name, $part_number);
+		
+		$stmt = $this->conn->prepare($sqlstr);
+		$stmt->execute();
+	}
+	
 }
