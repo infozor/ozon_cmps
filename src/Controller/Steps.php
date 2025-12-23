@@ -72,130 +72,151 @@ class Steps
 
 		return $this->file_data;
 	}
-	
+
 	/**
+	 *
 	 * @author Ionov AV
 	 * @дата:    17.12.2025
-	 * @время: 13:49 
+	 * @время: 13:49
 	 * Описание функции
-	 * Функция общей подгодовки данных с продуктами 
-	 * на основе опорной таблицы конкурентов  
+	 * Функция общей подгодовки данных с продуктами
+	 * на основе опорной таблицы конкурентов
 	 */
 	function Step00_Common()
 	{
 		$this->Db = new Db();
-		
+
 		$count = 200;
-		
+
 		//$count = 3;
-		
+
 		$fetch = $this->Db->get_ozon_products_info_price_ozon_card($count);
-		
+
 		//$fetch = $this->Db->get_ozon_products_info_price_ozon_card_otbor($count);
-		
+
+		//@todo taskp3875 23.12.2025 12:09 products_uploads_id добавить upload
+
 		$products = [];
-		
+
 		foreach ( $fetch as $item )
 		{
-			
+
 			//$name = $item['name'] ?? null;
 			$barcode = $item['barcode'] ?? '';
 			$clean_barcode = str_replace('OZN', '', $barcode);
-			
-			
+
 			/*
-			if ( $clean_barcode == '2031637196')
-			{
-				$a = 1;
-			}
-			*/
-			
+			 if ( $clean_barcode == '2031637196')
+			 {
+			 $a = 1;
+			 }
+			 */
+
 			//goto p1;
-			
+
 			$params['artikul'] = $clean_barcode; //sku
 			$fetch2 = $this->Db->get_ozon_parser_competitors_config($params);
-			
+
 			if (count($fetch2) > 0)
 			{
-				
+
 				for($i = 0; $i < count($fetch2); $i++)
 				{
 					$name = $fetch2[$i]['poiskovoe'];
-					
+
 					$items = [];
-					
+
 					$str_bs_ozon = $fetch2[$i]['bs_ozon'];
 					$str_chs_ozon = $fetch2[$i]['chs_ozon'];
-					
+
 					// Разбиваем на строки
 					$lines = explode("\n", $str_bs_ozon);
-					
+
 					for($j = 0; $j < count($lines); $j++)
 					{
 						$items['bs'][] = $lines[$j];
 					}
-					
+
 					// Разбиваем на строки
 					$lines = explode("\n", $str_chs_ozon);
-					
+
 					for($j = 0; $j < count($lines); $j++)
 					{
 						$items['chs'][] = $lines[$j];
 					}
-					
+
 					$url = $fetch2[$i]['url'];
-					
+
 					$naimenovanie = $fetch2[$i]['naimenovanie'];
-					
-					if (strpos($url, 'https') === 0)
+
+					$params['products_uploads_id'] = 1;
+					$params['part_number'] = $fetch2[$i]['part_number'];
+
+					$fetch3 = $this->Db->get_avz_products($params);
+
+					$good_id = null;
+					if (count($fetch3) > 0)
 					{
-						//'Строка начинается с https';
-						
-						$products[] = [
-								'name' => $name,
-								'cost' => 0,
-								'id' => $clean_barcode,
-								'black_list' => null, //чёрный список
-								'white_list' => null, //белый список
-								'yandex_model_id' => $url,
-								'custom' => [ //optional field
-										'naimenovanie' => $naimenovanie,
-										'product_id' => $clean_barcode,
-										'inner_num' => $i,
-										'url' => 'yes',
-										'base_id' => $item['id'] //id в таблице ozon_product_info
-								]
-						];
+						if (isset($fetch3[0]['sku']))
+						{
+							$good_id = $fetch3[0]['sku'];
+						}
 					}
-					else
+
+					if ($good_id != null)
 					{
-						//'Строка НЕ начинается с https';
-						
-						$products[] = [
-								'name' => $name,
-								'cost' => 0,
-								'id' => $clean_barcode,
-								//'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode,
-								'black_list' => $items['chs'], //чёрный список
-								'white_list' => $items['bs'], //белый список
-								"yandex_model_id" => null,
-								'custom' => [ //optional field
-										'naimenovanie' => $naimenovanie,
-										'product_id' => $clean_barcode,
-										'inner_num' => $i,
-										'url' => 'no',
-										'base_id' => $item['id'] //id в таблице ozon_product_info
-								]
-						];
+
+						if (strpos($url, 'https') === 0)
+						{
+							//'Строка начинается с https';
+
+							$products[] = [
+									'name' => $name,
+									'cost' => 0,
+									'id' => $clean_barcode,
+									'black_list' => null, //чёрный список
+									'white_list' => null, //белый список
+									'yandex_model_id' => $url,
+									'custom' => [ //optional field
+											'good_id' => $good_id,
+											'naimenovanie' => $naimenovanie,
+											'product_id' => $clean_barcode,
+											'inner_num' => $i,
+											'url' => 'yes',
+											'base_id' => $item['id'] //id в таблице ozon_product_info
+									]
+							];
+						}
+						else
+						{
+							//'Строка НЕ начинается с https';
+
+							$products[] = [
+									'name' => $name,
+									'cost' => 0,
+									'id' => $clean_barcode,
+									//'yandex_model_id' => 'https://www.ozon.ru/product/' . $clean_barcode,
+									'black_list' => $items['chs'], //чёрный список
+									'white_list' => $items['bs'], //белый список
+									"yandex_model_id" => null,
+									'custom' => [ //optional field
+											'good_id' => $good_id,
+											'naimenovanie' => $naimenovanie,
+											'product_id' => $clean_barcode,
+											'inner_num' => $i,
+											'url' => 'no',
+											'base_id' => $item['id'] //id в таблице ozon_product_info
+									]
+							];
+						}
 					}
 				}
 			}
 			//p1:
 		}
-		
+
 		return $products;
 	}
-	
 
 	// подготовка json файла с продуктами
 	function Step00()
@@ -414,32 +435,29 @@ class Steps
 			}
 		}
 	}
-	
 	function walkm($sheetData)
 	{
 		$this->Db = new Db();
-		
+
 		for($i = 0; $i < count($sheetData); $i++)
 		{
 			if ($i > 1)
 			{
 				$data = $sheetData[$i];
-				
+
 				$params['artikul'] = $data['A'];
 				$params['naimenovanie'] = $data['B'];
 				$params['poiskovoe'] = $data['C'];
 				$params['part_number'] = $data['D'];
-				
-				
+
 				$params['bs_ozon'] = $data['E'];
 				$params['chs_ozon'] = $data['F'];
 				$params['url'] = $data['G'];
-				
+
 				$this->Db->insert_ozon_parser_competitors_config($params);
 			}
 		}
 	}
-	
 	function Step00minus2($sku)
 	{
 		$this->Db = new Db();

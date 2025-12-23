@@ -632,4 +632,47 @@ class Db
 		$stmt->execute();
 	}
 	
+	function get_avz_products($params)
+	{
+		// @params
+		/*
+		$id = $params['id'];
+		$products_uploads_id = $params['products_uploads_id'];
+		$sku = $params['sku'];
+		$name = $params['name'];
+		$part_number = $params['part_number'];
+		$created_at = $params['created_at'];
+		*/
+		
+		$products_uploads_id = $params['products_uploads_id'];
+		$part_number = $params['part_number'];
+		
+		$sqlstr = sprintf("
+			SELECT
+              id,
+			  products_uploads_id,
+			  sku,
+			  name,
+			  part_number,
+			  created_at
+				
+			FROM
+			  public.avz_products
+			WHERE
+			  products_uploads_id = %s AND
+              part_number = '%s'
+			ORDER BY
+			  id
+            
+				
+			", $products_uploads_id, $part_number);
+		
+		$stmt = $this->conn->prepare($sqlstr);
+		$stmt->execute();
+		$rows = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+		return $rows;
+	}
+	
+	
+	
 }
